@@ -12,7 +12,7 @@ session_start();
 		echo'ARTISTE: '.$_GET["artiste"];
 	?>
 		<br/><br/>
-		<a href ="index.php">ACCUEIIL</a><br/><br/>
+		<a href ="index.php">INDEX</a><br/><br/>
 	</body>
 
 </html>
