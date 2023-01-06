@@ -12,24 +12,7 @@ session_start();
 		<title>MUZIK</title>
 		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 	</head>
-
-<body >
 	
-<?php
- session_start();
-?>
-<html>
-
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-		<meta charset="utf-8"/>
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<title>MUZIK</title>
-		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
-	</head>
-	
-<<<<<<< HEAD
 	<body id = "top">
 
 		<div id="header-wrap">
@@ -92,7 +75,7 @@ echo'</form>';
 
 </section>
 
->>>>>>> 4985f44500b68a1b1fbf48c825a79ab7ff784908
+
 <!-- sidebar -->
 <aside id="sidebar">
 
