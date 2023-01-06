@@ -14,27 +14,28 @@ session_start();
 
 	<body id = "top">
 
-	<div id="header-wrap"><header>
+		<div id="header-wrap">
+			<header>
 
-	<!-- Problème : je n'arrive pas à afficher le logo -->
-	<hgroup>
-            <h1><a href="index.php">Blog de Musique</a></h1>
-            <h3>Nathanael et Luan</h3>
-    </hgroup>
+				<!-- Problème : je n'arrive pas à afficher le logo -->
+				<hgroup>
+					<h1><a href="index.php">Blog de Musique</a></h1>
+					<h3>Nathanael et Luan</h3>
+				</hgroup>
 
-		<!--Menu-->
-		<nav>
-		    <ul>
-			    <li id="current"><a href="index.php">Accueil</a><span></span></li>
-			    <li><a href="connexion.php">Connexion</a><span></span></li>
-			    <li><a href="inscription.php">Inscription</a><span></span></li>
-			    <li><a href="index.php">Contact</a><span></span></li> <!--ajouter page de contact?-->
-				<!--Afficher déconnexion si utilisateur connecté-->
-			    <li><a href="">Déconnexion</a><span></span></li>
-				<!--Afficher si utilisateur est admin-->
-			    <li><a href="publier.php">Publier</a><span></span></li>
-		    </ul>
-	    </nav>
+				<!--Menu-->
+			<nav>
+				<ul>
+					<li id="current"><a href="index.php">Accueil</a><span></span></li>
+					<li><a href="connexion.php">Connexion</a><span></span></li>
+					<li><a href="inscription.php">Inscription</a><span></span></li>
+					<li><a href="index.php">Contact</a><span></span></li> <!--ajouter page de contact?-->
+					<!--Afficher déconnexion si utilisateur connecté-->
+					<li><a href="">Déconnexion</a><span></span></li>
+					<!--Afficher si utilisateur est admin-->
+					<li><a href="publier.php">Publier</a><span></span></li>
+				</ul>
+			</nav>
 
         <div class="subscribe">
             <a href="#">Avatar</a> | <a href="#">utilisateur</a>
