@@ -13,10 +13,10 @@ session_start();
 		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 	</head>
 
-	<body >
+<body >
 	
-	<?php
-session_start();
+<?php
+ session_start();
 ?>
 <html>
 
@@ -28,7 +28,8 @@ session_start();
 		<title>MUZIK</title>
 		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 	</head>
-
+	
+<<<<<<< HEAD
 	<body id = "top">
 
 		<div id="header-wrap">
@@ -91,6 +92,7 @@ echo'</form>';
 
 </section>
 
+>>>>>>> 4985f44500b68a1b1fbf48c825a79ab7ff784908
 <!-- sidebar -->
 <aside id="sidebar">
 

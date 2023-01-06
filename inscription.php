@@ -48,6 +48,7 @@ session_start();
 <div id="content-wrap-home">
 
 <!-- main -->
+<<<<<<< HEAD
 <section id="main">	
 <?php
 if (isset($_session['pseudo'])and $_session['pseudo']!=""){
@@ -69,7 +70,6 @@ echo'</center>';
 echo'</form>';
 }
 ?>
-</section>
 
 <!-- sidebar -->
 <aside id="sidebar">
@@ -104,8 +104,5 @@ echo'</form>';
 <!-- /sidebar -->
 </aside>
 </body>
-
-</html>
-		
 
 </html>
