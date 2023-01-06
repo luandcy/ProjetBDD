@@ -16,50 +16,54 @@ session_start();
 
 		<div id="header-wrap">
 			<header>
-
-				<!-- Problème : je n'arrive pas à afficher le logo -->
 				<hgroup>
-					<h1><a href="index.php">Blog de Musique</a></h1>
+					<img width="200"height="100" src="images/logo_zik.png" />200
+				</hgroup>
+			<!-- <header>
+				<!-- Problème : je n'arrive pas à afficher le logo -->
+				<!-- <hgroup>
+					<h1>
+						<a href="index.php">Blog de Musique</a>
+					</h1>
 					<h3>Nathanael et Luan</h3>
 				</hgroup>
-
+				-->
 				<!--Menu-->
-			<nav>
-				<ul>
-					<li id="current"><a href="index.php">Accueil</a><span></span></li>
-					<li><a href="connexion.php">Connexion</a><span></span></li>
-					<li><a href="inscription.php">Inscription</a><span></span></li>
-					<li><a href="index.php">Contact</a><span></span></li> <!--ajouter page de contact?-->
-					<!--Afficher déconnexion si utilisateur connecté-->
-					<li><a href="">Déconnexion</a><span></span></li>
-					<!--Afficher si utilisateur est admin-->
-					<li><a href="publier.php">Publier</a><span></span></li>
-				</ul>
-			</nav>
+				<nav>
+					<ul>
+						<li id="current"><a href="index.php">Accueil</a><span></span></li>
+						<li><a href="connexion.php">Connexion</a><span></span></li>
+						<li><a href="inscription.php">Inscription</a><span></span></li>
+						<li><a href="index.php">Contact</a><span></span></li> <!--ajouter page de contact?-->
+						<!--Afficher déconnexion si utilisateur connecté-->
+						<li><a href="">Déconnexion</a><span></span></li>
+						<!--Afficher si utilisateur est admin-->
+						<li><a href="publier.php">Publier</a><span></span></li>
+					</ul>
+				</nav>
 
-        <div class="subscribe">
-            <a href="#">Avatar</a> | <a href="#">utilisateur</a>
-        </div>
+				<div class="subscribe">
+					<a href="#">Avatar</a> | <a href="#">utilisateur</a>
+				</div>
 
-
-		<!--Recherche par nom d'artiste-->
-        <form id="quick-search" method="get" action="index.html">
-            <fieldset class="search">
-                <label for="qsearch">Rechercher Artiste:</label>
-                <input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l'artiste" />
-                <button class="btn" title="Confirmer">Search</button>
-            </fieldset>
-        </form>
+				<!--Recherche par nom d'artiste-->
+				<form id="quick-search" method="get" action="index.html">
+					<fieldset class="search">
+						<label for="qsearch">Rechercher Artiste:</label>
+						<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l'artiste" />
+						<button class="btn" title="Confirmer">Search</button>
+					</fieldset>
+				</form>
 
 	<!-- /header -->
-	</header></div>
+			</header></div>
 
 	<!--Artiste du mois-->
 	<div id="featured-wrap"><article id="featured" class="clearfix">
 		<h2>Artiste du mois</h2>
 
 		<div class="image-block">
-			<a title="" href="#"><img width="335" height="240" alt="featured" src="images/img-featured.jpg" /></a>
+			<a title="" href="#"><img width="335" height="240" alt="featured" src="images/BobMarley.jpg" /></a>
 		</div>
 
 		<div class="text-block">
