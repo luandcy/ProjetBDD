@@ -86,95 +86,72 @@ session_start();
 <section id="main">
 
 	<h3>Publications récentes</h3>
+	<?php
+	//Affichage de tout les artistes par ordre de publication ("Date")
+	
+		$connexion=mysqli_connect("localhost", "root", "");
+		mysqli_select_db($connexion, "projet_bdd");
 
-	<!--Artiste 1-->
-	<article class="col">
+		$req = 'SELECT * FROM artistes ORDER BY DatePublicationArtiste DESC;';
+		$res = mysqli_query($connexion, $req);
 
-		<a href="index.html" title="photo de l'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/thumb-1.jpg" /></a>
+		$i = 0;
 
-		<div class="top">
+			while ($enr_artiste=mysqli_fetch_array($res)){
 
-		   <h4><a href="index.html">page artiste1</a></h4>
-		   <p><span class="datetime">December 19, 2011(BDD)</span><a class="comment" href="index.html">2 Commentaires (BDD)</a></p>
+				$num_artiste = $enr_artiste['IdArtiste'];
 
-		</div>
+				//Récupération de l'image à partie de "IdArtiste"
+				$req2 = 'SELECT NomImage FROM images WHERE IdArtiste = '.$num_artiste.'';
+				$res2=mysqli_query($connexion, $req2);
+				//Récupération de la 2ème requête (pas besoin de boucle car 1 seul enregistrement)
+				$nom_image = mysqli_fetch_array($res2);
 
-		<div class="content">
-			<p>
-			texte bdd
-			</p>
-			<p><a href="#" class="more">continuer la lecture</a></p>
+				//Récupération du nombre de commentaire sur une publication d'un artiste
+				$req3 = 'SELECT * FROM avis WHERE IdArtiste = '.$num_artiste.';';
+				$res3 = mysqli_query($connexion, $req3);
+				$count = mysqli_num_rows($res3);
 
-		</div>
-
-	</article>
-
-	<!--Artiste 2-->
-	<article class="col even">
-
-		<a href="index.html" title=""><img width="240" height="100" alt="img" class="thumbnail" src="images/thumb-2.jpg" /></a>
-
-		<div class="top">
-
-		   <h4><a href="index.html">page artiste2</a></h4>
-		   <p><span class="datetime">December 17, 2011 (BDD)</span><a class="comment" href="index.html">2 Comments(BDD)</a></p>
-
-		</div>
-
-		<div class="content">
-			<p>
-			texte bdd
-			</p>
-			<p><a href="#" class="more">continuer la lecture</a></p>
-		</div>
-	</article>
-
-	<div class="fix"></div>
-
-	<!--Artiste 3-->
-	<article class="col">
-
-		<a href="index.html" title=""><img width="240" height="100" alt="img" class="thumbnail" src="images/thumb-3.jpg" /></a>
-
-		<div class="top">
-
-		   <h4><a href="index.html">page artiste1</a></h4>
-		   <p><span class="datetime">December 19, 2011(BDD)</span><a class="comment" href="index.html">2 Commentaires (BDD)</a></p>
-
-		</div>
-
-		<div class="content">
-			<p>
-			texte bdd
-			</p>
-			<p><a href="#" class="more">continuer la lecture</a></p>
-
-		</div>
-
-	</article>
-
-	<!--Artiste 4-->
-	<article class="col even">
-
-		<a href="index.html" title=""><img width="240" height="100" alt="img" class="thumbnail" src="images/thumb-4.jpg" /></a>
-
-		<div class="top">
-
-		   <h4><a href="index.html">page artiste2</a></h4>
-		   <p><span class="datetime">December 17, 2011 (BDD)</span><a class="comment" href="index.html">2 Comments(BDD)</a></p>
-
-		</div>
-
-		<div class="content">
-			<p>
-			texte bdd
-			</p>
-			<p><a href="#" class="more">continuer la lecture</a></p>
-		</div>	
-
-	</article>
+				if ($i % 2 == 0) {
 
 
+					echo '<article class="col">';
+						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
+
+						echo '<div class="top">';
+						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
+						echo '<p><span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span><a class="comment" href="index.php">'.$count.' Commentaires</a></p>';
+						echo '</div>';
+
+						echo '<div class="content">';
+							echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
+							echo '<p><a href="#" class="more">continuer la lecture</a></p>';
+						echo '</div>';
+					echo '</article>';
+				}
+				if ($i % 2 != 0) {
+					echo '<article class="col even">';
+						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
+
+						echo '<div class="top">';
+						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
+						echo '<p><span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span><a class="comment" href="index.php">'.$count.' Commentaires</a></p>';
+						echo '</div>';
+
+						echo '<div class="content">';
+							echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
+							echo '<p><a href="#" class="more">continuer la lecture</a></p>';
+						echo '</div>';
+					echo '</article>';
+				}
+
+				$i = $i + 1;
+		}
+
+		mysqli_close($connexion);
+
+	?>
+	
 </section>
 
 <!-- sidebar -->
