@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 05 jan. 2023 à 17:39
+-- Généré le : sam. 07 jan. 2023 à 01:11
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -42,10 +42,10 @@ CREATE TABLE `artistes` (
 --
 
 INSERT INTO `artistes` (`IdArtiste`, `NomArtiste`, `TexteArtiste`, `NoteArtiste`, `DatePublicationArtiste`, `IdUser`, `IdGenre`) VALUES
-(1, 'Michael Jackson', 'Reconnu comme l’artiste le plus titré de tous les temps, il est une figure principale de l\'histoire de l\'industrie du spectacle et l\'une des icônes culturelles occidentales majeures du xxe siècle.', 4, '2023-01-05', 23, 1),
-(2, 'Travis Scott', 'Un rappeur, chanteur, producteur, musicien, acteur, mannequin et réalisateur américain. Il a aussi collaboré avec beaucoup de grandes marques. ', 3, '2023-01-05', 22, 5),
-(3, 'Bob Marley', 'Il rencontre de son vivant un succès mondial, et reste à ce jour le musicien le plus connu du reggae, tout en étant considéré comme celui qui a permis à la musique jamaïcaine et au mouvement rastafari de connaître une audience planétaire.', 3, '2023-01-05', 21, 6),
-(4, 'Rihanna', 'Rihanna est l\'artiste qui compte le plus grand nombre de certifications de singles. Elle est aussi la première artiste au monde à franchir le cap de 100 millions de ventes numériques aux États-Unis2.', 4, '2023-01-05', 24, 2);
+(1, 'Michael Jackson', 'Reconnu comme l’artiste le plus titré de tous les temps, il est une figure principale de l\'histoire de l\'industrie du spectacle et l\'une des icônes culturelles occidentales majeures du xxe siècle.', 4, '2019-01-16', 23, 1),
+(2, 'Travis Scott', 'Un rappeur, chanteur, producteur, musicien, acteur, mannequin et réalisateur américain. Il a aussi collaboré avec beaucoup de grandes marques. ', 3, '2020-12-02', 22, 5),
+(3, 'Bob Marley', 'Il rencontre de son vivant un succès mondial, et reste à ce jour le musicien le plus connu du reggae, tout en étant considéré comme celui qui a permis à la musique jamaïcaine et au mouvement rastafari de connaître une audience planétaire.', 3, '2016-12-15', 21, 6),
+(4, 'Rihanna', 'Rihanna est l\'artiste qui compte le plus grand nombre de certifications de singles. Elle est aussi la première artiste au monde à franchir le cap de 100 millions de ventes numériques aux États-Unis2.', 4, '2010-12-14', 24, 2);
 
 -- --------------------------------------------------------
 
@@ -67,9 +67,9 @@ CREATE TABLE `avis` (
 --
 
 INSERT INTO `avis` (`IdAvis`, `TexteAvis`, `DateAvis`, `NoteAvis`, `IdUtilisateur`, `IdArtiste`) VALUES
-(1, 'Certe pour les fans c’est dur d’accepter que son idole soit parti .. j’aimerais y croire aussi mais malheureusement ce n’est pas le cas il est bien parti. ', '2023-01-05', 2, 22, 1),
-(2, 'Her music always makes me feel good! ', '2023-01-05', 4, 23, 4),
-(3, 'Kendrick’s verse is mad underrated !!! ', '2023-01-05', 3, 21, 2);
+(1, 'Certe pour les fans c’est dur d’accepter que son idole soit parti .. j’aimerais y croire aussi mais malheureusement ce n’est pas le cas il est bien parti. ', '2023-01-03', 2, 22, 1),
+(2, 'Her music always makes me feel good! ', '2021-12-15', 4, 23, 4),
+(3, 'Kendrick’s verse is mad underrated !!! ', '2017-12-14', 3, 21, 2);
 
 -- --------------------------------------------------------
 
@@ -111,10 +111,10 @@ CREATE TABLE `images` (
 --
 
 INSERT INTO `images` (`IdImage`, `NomImage`, `IdArtiste`) VALUES
-(1, 'BobMarley', 3),
-(2, 'MichaelJackson', 1),
-(3, 'Rihanna', 4),
-(4, 'TravisScott', 2);
+(1, 'BobMarley.jpg', 3),
+(2, 'MichaelJackson.jpg', 1),
+(3, 'Rihanna.png', 4),
+(4, 'TravisScott.jpg', 2);
 
 -- --------------------------------------------------------
 
