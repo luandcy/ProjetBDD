@@ -15,9 +15,7 @@ session_start();
 
 	<body >
 	
-	<?php
-session_start();
-?>
+
 <html>
 
 	<head>
@@ -68,7 +66,7 @@ session_start();
 <section id="main">		
 
 <?php
-If (!empty($_POST["pseudo"])and!empty($_POST["mail"])and!empty($_POST["pass"]))
+If (!empty($_POST["pseudo"])and!empty($_POST["mail"])and!empty($_POST["pass"])and!empty($_POST["confirm"]))
 {
  $pseudo = $_POST["pseudo"];
  $mail = $_POST["mail"];

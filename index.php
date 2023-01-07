@@ -16,6 +16,7 @@ session_start();
 
 		<div id="header-wrap">
 			<header>
+				<!--
 				<hgroup>
 					<img width="200"height="100" src="images/logo_zik.png" />200
 				</hgroup>
@@ -29,31 +30,61 @@ session_start();
 				</hgroup>
 				-->
 				<!--Menu-->
-				<nav>
-					<ul>
-						<li id="current"><a href="index.php">Accueil</a><span></span></li>
-						<li><a href="connexion.php">Connexion</a><span></span></li>
-						<li><a href="inscription.php">Inscription</a><span></span></li>
-						<li><a href="index.php">Contact</a><span></span></li> <!--ajouter page de contact?-->
-						<!--Afficher déconnexion si utilisateur connecté-->
-						<li><a href="">Déconnexion</a><span></span></li>
-						<!--Afficher si utilisateur est admin-->
-						<li><a href="publier.php">Publier</a><span></span></li>
-					</ul>
-				</nav>
+<?php
+//L'utilisateur est connecté
+if (isset($_SESSION['pseudo'])){
+	$pseudo = $_SESSION['pseudo'];
+				echo'<nav>';
+					echo'<ul>';
+						echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+						echo'<li><a href="index.php">Contact</a><span></span></li>';
+						//Afficher si utilisateur est admin
+						echo'<li><a href="publier.php">Publier</a><span></span></li>';
+						echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
 
-				<div class="subscribe">
-					<a href="#">Avatar</a> | <a href="#">utilisateur</a>
-				</div>
+					echo'</ul>';
+				echo'</nav>';
 
-				<!--Recherche par nom d'artiste-->
-				<form id="quick-search" method="get" action="index.html">
-					<fieldset class="search">
-						<label for="qsearch">Rechercher Artiste:</label>
-						<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l'artiste" />
-						<button class="btn" title="Confirmer">Search</button>
-					</fieldset>
-				</form>
+				echo'<div class="subscribe">';
+					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
+				echo'</div>';
+
+				//Recherche par nom d'artiste
+				echo'<form id="quick-search" method="get" action="index.html">';
+					echo'<fieldset class="search">';
+						echo'<label for="qsearch">Rechercher Artiste:</label>';
+						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
+						echo'<button class="btn" title="Confirmer">Search</button>';
+					echo'</fieldset>';
+				echo'</form>';
+}
+//L'utisateur n'est pas connecté
+else{
+				echo'<nav>';
+					echo'<ul>';
+						echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+						echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
+						echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
+						echo'<li><a href="index.php">Contact</a><span></span></li>';
+						//Afficher si utilisateur est admin
+					echo'</ul>';
+				echo'</nav>';
+
+				echo'<div class="subscribe">';
+					echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';
+				echo'</div>';
+
+				//Recherche par nom d'artiste
+				echo'<form id="quick-search" method="get" action="index.html">';
+					echo'<fieldset class="search">';
+						echo'<label for="qsearch">Rechercher Artiste:</label>';
+						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
+						echo'<button class="btn" title="Confirmer">Search</button>';
+					echo'</fieldset>';
+				echo'</form>';
+}
+
+?>
 
 	<!-- /header -->
 			</header></div>
@@ -113,8 +144,6 @@ session_start();
 				$count = mysqli_num_rows($res3);
 
 				if ($i % 2 == 0) {
-
-
 					echo '<article class="col">';
 						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
 
@@ -129,6 +158,7 @@ session_start();
 						echo '</div>';
 					echo '</article>';
 				}
+				
 				if ($i % 2 != 0) {
 					echo '<article class="col even">';
 						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
@@ -157,21 +187,37 @@ session_start();
 <!-- sidebar -->
 <aside id="sidebar">
 
-			<div class="sidemenu">
-				<h3>Menu Latéral</h3>
-				<ul>
-					<li id="current"><a href="index.php">Accueil</a><span></span></li>
-					<li><a href="connexion.php">Connexion</a><span></span></li>
-					<li><a href="inscription.php">Inscription</a><span></span></li>
-					<li><a href="index.php">Contact</a><span></span></li> <!--ajouter page de contact?-->
-					<!--Afficher déconnexion si utilisateur connecté-->
-					<li><a href="">Déconnexion</a><span></span></li>
-					<!--Afficher si utilisateur est admin-->
-					<li><a href="publier.php">Publier</a><span></span></li>
-				</ul>
-			</div>
+<?php
+//L'utilisateur est connecté
+if (isset($_SESSION['pseudo'])){
+	$pseudo = $_SESSION['pseudo'];
+	echo'<div class="sidemenu">';
+				echo'<h3>Menu Latéral</h3>';
+				echo'<ul>';
+					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+					//ajouter page de contact?
+					echo'<li><a href="index.php">Contact</a><span></span></li> ';
+					echo'<li><a href="publier.php">Publier</a><span></span></li>';
+					echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
 
+				echo'</ul>';
+	echo'</div>';
+}
+//L'utisateur n'est pas connecté
+else{
+	echo'<div class="sidemenu">';
+				echo'<h3>Menu Latéral</h3>';
+				echo'<ul>';
+					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+					echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
+					echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
+					//ajouter page de contact?
+					echo'<li><a href="index.php">Contact</a><span></span></li> ';
+				echo'</ul>';
+	echo'</div>';
 
+}
+?>
 			<h3>Galerie de photos</h3>
 
 			<ul class="photostream clearfix">
