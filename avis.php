@@ -47,13 +47,13 @@ if (isset($_SESSION['pseudo'])){
 				echo'</div>';
 
 				//Recherche par nom d'artiste
-				echo'<form id="quick-search" method="get" action="index.html">';
-					echo'<fieldset class="search">';
-						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
-						echo'<button class="btn" title="Confirmer">Search</button>';
-					echo'</fieldset>';
-				echo'</form>';
+				//echo'<form id="quick-search" method="get" action="index.html">';
+					//echo'<fieldset class="search">';
+						//echo'<label for="qsearch">Rechercher Artiste:</label>';
+						//echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
+						//echo'<button class="btn" title="Confirmer">Search</button>';
+					//echo'</fieldset>';
+				//echo'</form>';
 }
 //L'utisateur n'est pas connecté
 else{
@@ -93,7 +93,7 @@ else{
 <!-- main -->
 <section id="main">		
 <?php
-	//Affichage de tout les artistes par ordre de publication ("Date")
+	//Affichage d'un  artiste avec son id 
 		$artiste = $_GET["artiste"];
 	
 		$connexion=mysqli_connect("localhost", "root", "");
@@ -119,6 +119,7 @@ else{
 
 					echo '<article class="col">';
 						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
+						//echo '<a href="index.php" title="photo de l\'artiste x"><img width="275" height="175" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
 
 						echo '<div class="top">';
 						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
@@ -128,7 +129,10 @@ else{
 						echo '<div class="content">';
 						echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
 						//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
+					echo '</article>';
 						
+					echo '<article class="col even">';
+	
 						//Pour mettre les commentaires et les notes
 						echo'<form action="avis2.php" method="POST">';
 						echo'Ecrivez votre commentaire.<br/>';
@@ -158,38 +162,38 @@ else{
 
 
 <!-- sidebar -->
-<aside id="sidebar">
+<!-- <aside id="sidebar">
 
 <?php
 //L'utilisateur est connecté
-if (isset($_SESSION['pseudo'])){
-	$pseudo = $_SESSION['pseudo'];
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-					echo'<li><a href="publier.php">Publier</a><span></span></li>';
-					echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
+//if (isset($_SESSION['pseudo'])){
+	//$pseudo = $_SESSION['pseudo'];
+	//echo'<div class="sidemenu">';
+				//echo'<h3>Menu Latéral</h3>';
+				//echo'<ul>';
+					//echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+					////ajouter page de contact?
+					//echo'<li><a href="index.php">Contact</a><span></span></li> ';
+					//echo'<li><a href="publier.php">Publier</a><span></span></li>';
+					//echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
 
-				echo'</ul>';
-	echo'</div>';
-}
-//L'utisateur n'est pas connecté
-else{
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-					echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-				echo'</ul>';
-	echo'</div>';
+				//echo'</ul>';
+	//echo'</div>';
+//}
+////L'utisateur n'est pas connecté
+//else{
+	//echo'<div class="sidemenu">';
+				//echo'<h3>Menu Latéral</h3>';
+				//echo'<ul>';
+					//echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+					//echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
+					//echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
+					////ajouter page de contact?
+					//echo'<li><a href="index.php">Contact</a><span></span></li> ';
+				//echo'</ul>';
+	//echo'</div>';
+//}
 
-}
 ?>
 
 		<!--	<h3>Galerie de photos</h3>
@@ -206,6 +210,8 @@ else{
 
 <!-- /sidebar -->
 </aside>
+
+
 </body>
 
 </html>
