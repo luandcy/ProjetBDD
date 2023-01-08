@@ -154,7 +154,9 @@ else{
 
 						echo '<div class="content">';
 							echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
-							echo '<p><a href="#" class="more">continuer la lecture</a></p>';
+							//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
+							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Aller sur cette publication</a></p>';
+
 						echo '</div>';
 					echo '</article>';
 				}
@@ -170,7 +172,8 @@ else{
 
 						echo '<div class="content">';
 							echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
-							echo '<p><a href="#" class="more">continuer la lecture</a></p>';
+							//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
+							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Aller sur cette publication</a></p>';
 						echo '</div>';
 					echo '</article>';
 				}
