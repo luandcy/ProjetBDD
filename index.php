@@ -49,17 +49,13 @@ session_start();
 				echo'</div>';
 
 				//Recherche par nom d'artiste
-				echo'<form id="quick-search" method="get" action="index.php">';
+				echo'<form id="quick-search" method="get" action="recherche.php">';
 					echo'<fieldset class="search">';
-<<<<<<< Updated upstream
+
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
 						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
-=======
-					echo'<label for="qsearch">Rechercher Artiste:</label>';
-					echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
-					echo'<button class="btn" title="Confirmer">Search</button>';
->>>>>>> Stashed changes
+
 					echo'</fieldset>';
 				echo'</form>';
 			}
@@ -71,7 +67,6 @@ session_start();
 						echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
 						echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
 						echo'<li><a href="index.php">Contact</a><span></span></li>';
-						//Afficher si utilisateur est admin
 					echo'</ul>';
 				echo'</nav>';
 
@@ -80,7 +75,6 @@ session_start();
 				echo'</div>';
 
 				//Recherche par nom d'artiste
-				//echo'<form id="quick-search" method="get" action="index.php">';
 				echo'<form id="quick-search" method="get" action="recherche.php">';
 
 					echo'<fieldset class="search">';
@@ -126,7 +120,7 @@ session_start();
 
 		<div class="text-block">
 			<h2><a href="#"><?php echo $enr_artiste['NomArtiste']; ?></a></h2>
-			<p class="post-meta">Posted by <a href="index.html">nath</a> <span class="datetime"><?php echo $enr_artiste['DatePublicationArtiste'];?></span></p>
+			<p class="post-meta">Posted by <a href="index.php">nath</a> <span class="datetime"><?php echo $enr_artiste['DatePublicationArtiste'];?></span></p>
 
 			<p><?php echo $enr_artiste['TexteArtiste']; ?>[...] </p>
 
