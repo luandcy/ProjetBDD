@@ -16,12 +16,12 @@ session_start();
 
 		<div id="header-wrap">
 			<header>
-				<!--<hgroup>
+				<hgroup>
 					<img width="20"height="100" src="images/logo_zik.png" />
 				</hgroup>
 				
 			<!-- <header>
-				<!-- Problème : je n'arrive pas à afficher le logo -->
+				Problème : je n'arrive pas à afficher le logo -->
 				<!-- <hgroup>
 					<h1>
 						<a href="index.php">Blog de Musique</a>
@@ -29,10 +29,10 @@ session_start();
 					<h3>Nathanael et Luan</h3>
 				</hgroup> -->
 				<!--Menu-->
-<?php
-//L'utilisateur est connecté
-if (isset($_SESSION['pseudo'])){
-	$pseudo = $_SESSION['pseudo'];
+			<?php
+			//L'utilisateur est connecté
+			if (isset($_SESSION['pseudo'])){
+				$pseudo = $_SESSION['pseudo'];
 				echo'<nav>';
 					echo'<ul>';
 						echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
@@ -51,14 +51,20 @@ if (isset($_SESSION['pseudo'])){
 				//Recherche par nom d'artiste
 				echo'<form id="quick-search" method="get" action="index.php">';
 					echo'<fieldset class="search">';
+<<<<<<< Updated upstream
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
 						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
+=======
+					echo'<label for="qsearch">Rechercher Artiste:</label>';
+					echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
+					echo'<button class="btn" title="Confirmer">Search</button>';
+>>>>>>> Stashed changes
 					echo'</fieldset>';
 				echo'</form>';
-}
-//L'utisateur n'est pas connecté
-else{
+			}
+			//L'utisateur n'est pas connecté
+			else{
 				echo'<nav>';
 					echo'<ul>';
 						echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
@@ -81,11 +87,11 @@ else{
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
 						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
-					echo'</fieldset>';
+						echo'</fieldset>';
 				echo'</form>';
-}
+			}
 
-?>
+			?>
 
 	<!-- /header -->
 			</header></div>
@@ -94,20 +100,40 @@ else{
 	<div id="featured-wrap"><article id="featured" class="clearfix">
 		<h2>Artiste du mois</h2>
 
+		<!--Récupération de la publication la plus récente (problème : et si on publie plus d'un artiste par mois?)-->
+		<!--éventuellement on pourra choisir un artiste en faisant une requête sur un artiste d'ou on connait le nom et qu'on veut mettre en évidence-->
+		<?php
+			$connexion=mysqli_connect("localhost", "root", "");
+			mysqli_select_db($connexion, "projet_bdd");
+
+			$req = 'SELECT IdArtiste, SUBSTRING(TexteArtiste, 1, 300) AS TexteArtiste, NomArtiste, DatePublicationArtiste 
+					FROM artistes ORDER BY DatePublicationArtiste DESC;';
+			$res = mysqli_query($connexion, $req);
+
+			$enr_artiste=mysqli_fetch_array($res);
+
+			//Récupération de l'image à partie de "IdArtiste"
+				$req2 = 'SELECT NomImage FROM images WHERE IdArtiste = '.$enr_artiste['IdArtiste'].'';
+				$res2=mysqli_query($connexion, $req2);
+				//Récupération de la 2ème requête (pas besoin de boucle car 1 seul enregistrement)
+				$nom_image = mysqli_fetch_array($res2);
+
+		?>
+
 		<div class="image-block">
-			<a title="" href="#"><img width="335" height="240" alt="featured" src="images/BobMarley.jpg" /></a>
+			<a title="" href="#"><img width="335" height="240" alt="featured" src="images/<?php echo $nom_image['NomImage']; ?>" /></a>
 		</div>
 
 		<div class="text-block">
-			<h2><a href="#">Nom Artiste bdd</a></h2>
-			<p class="post-meta">Posted by <a href="index.html">nath</a> date publication bdd</p>
+			<h2><a href="#"><?php echo $enr_artiste['NomArtiste']; ?></a></h2>
+			<p class="post-meta">Posted by <a href="index.html">nath</a> <span class="datetime"><?php echo $enr_artiste['DatePublicationArtiste'];?></span></p>
 
-			<p>texte de la bdd</p>
+			<p><?php echo $enr_artiste['TexteArtiste']; ?>[...] </p>
 
-			<p><a href="index.html" class="more">Continuer la lecture</a></p>
+			<p><a href="index.php" class="more">Continuer la lecture</a></p>
 
 		</div>
-
+		<?php mysqli_close($connexion);?>
 	</article></div>
 	
 	<!-- Contenu============================================================================== -->
@@ -124,7 +150,8 @@ else{
 		$connexion=mysqli_connect("localhost", "root", "");
 		mysqli_select_db($connexion, "projet_bdd");
 
-		$req = 'SELECT * FROM artistes ORDER BY DatePublicationArtiste DESC;';
+		$req = 'SELECT IdArtiste, SUBSTRING(TexteArtiste, 1, 120) AS TexteArtiste, NomArtiste, DatePublicationArtiste 
+				FROM artistes ORDER BY DatePublicationArtiste DESC;';
 		$res = mysqli_query($connexion, $req);
 
 		$i = 0;
@@ -154,9 +181,9 @@ else{
 						echo '</div>';
 
 						echo '<div class="content">';
-							echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
+							echo '<p>'.$enr_artiste['TexteArtiste'].'[...]</p>';
 							//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
-							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Aller sur cette publication</a></p>';
+							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
 
 						echo '</div>';
 					echo '</article>';
@@ -172,9 +199,9 @@ else{
 						echo '</div>';
 
 						echo '<div class="content">';
-							echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
+							echo '<p>'.$enr_artiste['TexteArtiste'].'[...]</p>';
 							//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
-							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Aller sur cette publication</a></p>';
+							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
 						echo '</div>';
 					echo '</article>';
 				}
