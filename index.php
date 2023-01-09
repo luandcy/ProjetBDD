@@ -52,7 +52,7 @@ if (isset($_SESSION['pseudo'])){
 				echo'<form id="quick-search" method="get" action="index.php">';
 					echo'<fieldset class="search">';
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
+						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
 					echo'</fieldset>';
 				echo'</form>';
@@ -79,7 +79,6 @@ else{
 
 					echo'<fieldset class="search">';
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						//echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
 						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
 					echo'</fieldset>';
