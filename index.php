@@ -16,49 +16,56 @@ session_start();
 
 		<div id="header-wrap">
 			<header>
-				<hgroup>
+				<!--<
+				hgroup>
 					<img width="20"height="100" src="images/logo_zik.png" />
 				</hgroup>
+				-->
 				
-			<!-- <header>
-				Problème : je n'arrive pas à afficher le logo -->
-				<!-- <hgroup>
-					<h1>
-						<a href="index.php">Blog de Musique</a>
-					</h1>
-					<h3>Nathanael et Luan</h3>
-				</hgroup> -->
 				<!--Menu-->
 			<?php
 			//L'utilisateur est connecté
-			if (isset($_SESSION['pseudo'])){
+			if (isset($_SESSION['pseudo'])AND isset($_SESSION['admin']))
+				{
 				$pseudo = $_SESSION['pseudo'];
-				echo'<nav>';
-					echo'<ul>';
-						echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-						echo'<li><a href="index.php">Contact</a><span></span></li>';
-						//Afficher si utilisateur est admin
-						echo'<li><a href="publier.php">Publier</a><span></span></li>';
-						echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
+				$amdin = $_SESSION['admin']; 
+				//Si utilisateur est admin (avec bouton publier)
+				if ($amdin == 1)
+				{
+					echo'<nav>';
+						echo'<ul>';
+							echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+							echo'<li><a href="index.php">Contact</a><span></span></li>';
+							echo'<li><a href="publier.php">Publier</a><span></span></li>';
+							echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
+						echo'</ul>';
+					echo'</nav>';
+				}
+				else
+				//Si utilisateur n'est pas admin (sans bouton publier)
+				{
+					echo'<nav>';
+						echo'<ul>';
+							echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
+							echo'<li><a href="index.php">Contact</a><span></span></li>';
+							echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
+						echo'</ul>';
+					echo'</nav>';
+				}
 
-					echo'</ul>';
-				echo'</nav>';
+					echo'<div class="subscribe">';
+						echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
+					echo'</div>';
 
-				echo'<div class="subscribe">';
-					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
-				echo'</div>';
-
-				//Recherche par nom d'artiste
-				echo'<form id="quick-search" method="get" action="recherche.php">';
-					echo'<fieldset class="search">';
-
-						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
-						echo'<button class="btn" title="Confirmer">Search</button>';
-
-					echo'</fieldset>';
-				echo'</form>';
-			}
+				//Recherche avec le nom de l'artiste
+					echo'<form id="quick-search" method="get" action="recherche.php">';
+						echo'<fieldset class="search">';
+							echo'<label for="qsearch">Rechercher Artiste:</label>';
+							echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
+							echo'<button class="btn" title="Confirmer">Search</button>';
+						echo'</fieldset>';
+					echo'</form>';
+				}
 			//L'utisateur n'est pas connecté
 			else{
 				echo'<nav>';
@@ -74,7 +81,7 @@ session_start();
 					echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';
 				echo'</div>';
 
-				//Recherche par nom d'artiste
+				//Recherche avec le nom de l'artiste
 				echo'<form id="quick-search" method="get" action="recherche.php">';
 
 					echo'<fieldset class="search">';

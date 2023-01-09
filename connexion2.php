@@ -18,13 +18,6 @@ session_start();
 		<div id="header-wrap">
 			<header>
 
-				<!-- Problème : je n'arrive pas à afficher le logo -->
-				<!--
-				<hgroup>
-					<h1><a href="index.php">Blog de Musique</a></h1>
-					<h3>Nathanael et Luan</h3>
-				</hgroup>
-				-->
 				<!--Menu-->
 <?php
 //L'utilisateur est connecté
@@ -84,8 +77,6 @@ If (!empty($_POST["pseudo"])and!empty($_POST["mail"])and!empty($_POST["pass"])an
  $pseudo = $_POST["pseudo"];
  $mail = $_POST["mail"];
  $pass = $_POST["pass"];
- $admin1 = 1;
- $admin0 = 0;
 }
  else
 {
@@ -96,12 +87,13 @@ If (!empty($_POST["pseudo"])and!empty($_POST["mail"])and!empty($_POST["pass"])an
 If ($_POST["confirm"] == "oui")
 {	
  
+	$admin =  1; 
 	//connexion à la base
 	$connexion = mysqli_connect("localhost", "root", "");
 	mysqli_select_db($connexion,"projet_bdd"); 
  
 	//création requête pour recupération de données
-	$req = 'SELECT * FROM utilisateurs WHERE Pseudo = "'.$pseudo.'"AND Mail= "'.$mail.'" AND Password = "'.$pass.'"AND Administrateur="'.$admin1.'";'; 
+	$req = 'SELECT * FROM utilisateurs WHERE Pseudo = "'.$pseudo.'"AND Mail= "'.$mail.'" AND Password = "'.$pass.'"AND Administrateur="'.$admin.'";'; 
  
 	//envoi de la requête à la base et récupération dans une variable
 	$res = mysqli_query($connexion, $req);
@@ -111,8 +103,7 @@ If ($_POST["confirm"] == "oui")
 	{
 		echo'<br/>Bienvenue '.$pseudo.' !';//L'utilisateur existe!
 		$_SESSION['pseudo']=$pseudo;
-		$_SESSION['mail']=$mail;
-		$_SESSION['pass']=$pass;
+		$_SESSION['admin']=$admin;
 
 		//Recup info sur user
 		$enreg_utilisateur = mysqli_fetch_array($res);
@@ -127,28 +118,18 @@ If ($_POST["confirm"] == "oui")
 	//fermeture 
 	mysqli_close($connexion);
 
-	//Saisi du code
-	/*
-	echo'<form action="admin.php" method="POST">';
-	echo'Saisir le code admin: <input type="password" size="" name="code_admin"/><br/><br/>';
-	echo'<center>';
-	echo'<input type="submit" value="VALIDER"/>';
-	echo'<input type="reset" value="ANNULER"/>';
-	echo'</center>';
-	echo'</form>';
-	*/
 }
 
 //SI NON ADMINISTRATEUR
 else
 {
-	
+	$admin =  0; 
 	//connexion à la base
 	$connexion = mysqli_connect("localhost", "root", "");
 	mysqli_select_db($connexion,"projet_bdd"); 
  
 	//création requête pour recupération de données
-	$req = 'SELECT * FROM utilisateurs WHERE Pseudo = "'.$pseudo.'"AND Mail= "'.$mail.'" AND Password = "'.$pass.'"AND Administrateur="'.$admin0.'";'; 
+	$req = 'SELECT * FROM utilisateurs WHERE Pseudo = "'.$pseudo.'"AND Mail= "'.$mail.'" AND Password = "'.$pass.'"AND Administrateur="'.$admin.'";'; 
  
 	//envoi de la requête à la base et récupération dans une variable
 	$res = mysqli_query($connexion, $req);
@@ -158,6 +139,7 @@ else
 	{
 		echo'<br/>Bienvenue '.$pseudo.' !';
 		$_SESSION['pseudo']=$pseudo;
+		$_SESSION['admin']=$admin;
 
 		//Recup info sur user
 		$enreg_utilisateur = mysqli_fetch_array($res);

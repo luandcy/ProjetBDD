@@ -18,14 +18,6 @@ session_start();
 		<div id="header-wrap">
 			<header>
 
-				<!-- 
-				Problème : je n'arrive pas à afficher le logo 
-				<hgroup>
-					<h1><a href="index.php">Blog de Musique</a></h1>
-					<h3>Nathanael et Luan</h3>
-				</hgroup>
-				-->
-
 				<!--Menu-->
 <?php
 //L'utilisateur est connecté
@@ -46,14 +38,6 @@ if (isset($_SESSION['pseudo'])){
 					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
 				echo'</div>';
 
-				//Recherche par nom d'artiste
-				/*echo'<form id="quick-search" method="get" action="index.html">';
-					echo'<fieldset class="search">';
-						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
-						echo'<button class="btn" title="Confirmer">Search</button>';
-					echo'</fieldset>';
-				echo'</form>';*/
 }
 
 //L'utisateur n'est pas connecté
@@ -71,15 +55,6 @@ else{
 				echo'<div class="subscribe">';
 					echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';
 				echo'</div>';
-
-				//Recherche par nom d'artiste
-				/*echo'<form id="quick-search" method="get" action="index.html">';
-					echo'<fieldset class="search">';
-						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
-						echo'<button class="btn" title="Confirmer">Search</button>';
-					echo'</fieldset>';
-				echo'</form>';*/
 }
 
 ?>
@@ -161,58 +136,6 @@ else{
 		mysqli_close($connexion);
 ?>
 </section>
-
-
-<!-- sidebar -->
-<!-- <aside id="sidebar">
-
-<?php
-//L'utilisateur est connecté
-//if (isset($_SESSION['pseudo'])){
-	//$pseudo = $_SESSION['pseudo'];
-	//echo'<div class="sidemenu">';
-				//echo'<h3>Menu Latéral</h3>';
-				//echo'<ul>';
-					//echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					////ajouter page de contact?
-					//echo'<li><a href="index.php">Contact</a><span></span></li> ';
-					//echo'<li><a href="publier.php">Publier</a><span></span></li>';
-					//echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
-
-				//echo'</ul>';
-	//echo'</div>';
-//}
-////L'utisateur n'est pas connecté
-//else{
-	//echo'<div class="sidemenu">';
-				//echo'<h3>Menu Latéral</h3>';
-				//echo'<ul>';
-					//echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					//echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-					//echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-					////ajouter page de contact?
-					//echo'<li><a href="index.php">Contact</a><span></span></li> ';
-				//echo'</ul>';
-	//echo'</div>';
-//}
-
-?>
-
-		<!--	<h3>Galerie de photos</h3>
-
-			<ul class="photostream clearfix">
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-			</ul>
-		-->
-
-<!-- /sidebar -->
-</aside>
-
 
 </body>
 

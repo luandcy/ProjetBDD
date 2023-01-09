@@ -17,14 +17,6 @@ session_start();
 		<div id="header-wrap">
 			<header>
 
-				<!-- 
-				Problème : je n'arrive pas à afficher le logo 
-				<hgroup>
-					<h1><a href="index.php">Blog de Musique</a></h1>
-					<h3>Nathanael et Luan</h3>
-				</hgroup>
-				-->
-
 				<!--Menu-->
 <?php
 //L'utilisateur est connecté
