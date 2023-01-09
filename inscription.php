@@ -46,13 +46,13 @@ if (isset($_SESSION['pseudo'])){
 				echo'</div>';
 
 				//Recherche par nom d'artiste
-				echo'<form id="quick-search" method="get" action="index.html">';
+				/*echo'<form id="quick-search" method="get" action="index.html">';
 					echo'<fieldset class="search">';
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
 						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
 					echo'</fieldset>';
-				echo'</form>';
+				echo'</form>';*/
 }
 //L'utisateur n'est pas connecté
 else{
@@ -71,13 +71,13 @@ else{
 				echo'</div>';
 
 				//Recherche par nom d'artiste
-				echo'<form id="quick-search" method="get" action="index.php">';
+				/*echo'<form id="quick-search" method="get" action="index.php">';
 					echo'<fieldset class="search">';
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
 						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
 					echo'</fieldset>';
-				echo'</form>';
+				echo'</form>';*/
 }
 
 ?>

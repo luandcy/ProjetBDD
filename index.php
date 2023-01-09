@@ -16,10 +16,10 @@ session_start();
 
 		<div id="header-wrap">
 			<header>
-				<!--
-				<hgroup>
-					<img width="200"height="100" src="images/logo_zik.png" />200
+				<!--<hgroup>
+					<img width="20"height="100" src="images/logo_zik.png" />
 				</hgroup>
+				
 			<!-- <header>
 				<!-- Problème : je n'arrive pas à afficher le logo -->
 				<!-- <hgroup>
@@ -27,8 +27,7 @@ session_start();
 						<a href="index.php">Blog de Musique</a>
 					</h1>
 					<h3>Nathanael et Luan</h3>
-				</hgroup>
-				-->
+				</hgroup> -->
 				<!--Menu-->
 <?php
 //L'utilisateur est connecté
@@ -75,10 +74,13 @@ else{
 				echo'</div>';
 
 				//Recherche par nom d'artiste
-				echo'<form id="quick-search" method="get" action="index.html">';
+				//echo'<form id="quick-search" method="get" action="index.php">';
+				echo'<form id="quick-search" method="get" action="recherche.php">';
+
 					echo'<fieldset class="search">';
 						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
+						//echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
+						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l\'artiste" />';
 						echo'<button class="btn" title="Confirmer">Search</button>';
 					echo'</fieldset>';
 				echo'</form>';
