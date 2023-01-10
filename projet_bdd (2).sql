@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 07 jan. 2023 à 01:11
--- Version du serveur : 10.4.24-MariaDB
--- Version de PHP : 8.1.6
+-- Généré le : mar. 10 jan. 2023 à 17:48
+-- Version du serveur : 10.4.27-MariaDB
+-- Version de PHP : 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,7 +35,7 @@ CREATE TABLE `artistes` (
   `DatePublicationArtiste` date NOT NULL,
   `IdUser` int(11) NOT NULL,
   `IdGenre` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `artistes`
@@ -58,18 +58,20 @@ CREATE TABLE `avis` (
   `TexteAvis` text NOT NULL,
   `DateAvis` date NOT NULL,
   `NoteAvis` int(11) NOT NULL,
-  `IdUtilisateur` int(11) NOT NULL,
+  `IdUser` int(11) NOT NULL,
   `IdArtiste` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `avis`
 --
 
-INSERT INTO `avis` (`IdAvis`, `TexteAvis`, `DateAvis`, `NoteAvis`, `IdUtilisateur`, `IdArtiste`) VALUES
+INSERT INTO `avis` (`IdAvis`, `TexteAvis`, `DateAvis`, `NoteAvis`, `IdUser`, `IdArtiste`) VALUES
 (1, 'Certe pour les fans c’est dur d’accepter que son idole soit parti .. j’aimerais y croire aussi mais malheureusement ce n’est pas le cas il est bien parti. ', '2023-01-03', 2, 22, 1),
 (2, 'Her music always makes me feel good! ', '2021-12-15', 4, 23, 4),
-(3, 'Kendrick’s verse is mad underrated !!! ', '2017-12-14', 3, 21, 2);
+(3, 'Kendrick’s verse is mad underrated !!! ', '2017-12-14', 3, 21, 2),
+(4, 'Bob Marley reggae trop bien !', '2023-01-08', 5, 24, 3),
+(5, 'Sa meilleure musique c\'est \"Jamming\" <3', '2023-01-01', 5, 23, 3);
 
 -- --------------------------------------------------------
 
@@ -80,7 +82,7 @@ INSERT INTO `avis` (`IdAvis`, `TexteAvis`, `DateAvis`, `NoteAvis`, `IdUtilisateu
 CREATE TABLE `genres` (
   `IdGenre` int(11) NOT NULL,
   `NomGenre` varchar(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `genres`
@@ -104,7 +106,7 @@ CREATE TABLE `images` (
   `IdImage` int(11) NOT NULL,
   `NomImage` varchar(60) NOT NULL,
   `IdArtiste` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `images`
@@ -129,17 +131,18 @@ CREATE TABLE `utilisateurs` (
   `Mail` varchar(50) NOT NULL,
   `Avatar` varchar(50) NOT NULL,
   `Administrateur` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`IdUser`, `Pseudo`, `Password`, `Mail`, `Avatar`, `Administrateur`) VALUES
-(21, 'RNath', 'Toto_mdp', 'RN@gmail.fr', '', 0),
-(22, 'HU', 'Baap', 'HU.R@gmail.fr', '', 0),
-(23, 'Nathanael', 'mdp_nth', 'nath.Ra@gmail.fr', '', 1),
-(24, 'Luan', 'mdp_luan', 'luan.De@gmail.fr', '', 1);
+(21, 'RNath', 'Toto_mdp', 'RN@gmail.fr', 'gravatar.jpg', 0),
+(22, 'HU', 'Baap', 'HU.R@gmail.fr', 'gravatar.jpg', 0),
+(23, 'Nathanael', 'mdp_nth', 'nath.Ra@gmail.fr', 'gravatar.jpg', 1),
+(24, 'Luan', 'mdp_luan', 'luan.De@gmail.fr', 'gravatar.jpg', 1),
+(25, 'q', 'q', 'q', '', 0);
 
 --
 -- Index pour les tables déchargées
@@ -158,7 +161,7 @@ ALTER TABLE `artistes`
 --
 ALTER TABLE `avis`
   ADD PRIMARY KEY (`IdAvis`),
-  ADD KEY `IdUtilisateur` (`IdUtilisateur`),
+  ADD KEY `IdUtilisateur` (`IdUser`),
   ADD KEY `IdArtiste` (`IdArtiste`);
 
 --
@@ -194,7 +197,7 @@ ALTER TABLE `artistes`
 -- AUTO_INCREMENT pour la table `avis`
 --
 ALTER TABLE `avis`
-  MODIFY `IdAvis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdAvis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `genres`
@@ -212,7 +215,7 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `IdUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `IdUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Contraintes pour les tables déchargées
@@ -229,7 +232,8 @@ ALTER TABLE `artistes`
 -- Contraintes pour la table `avis`
 --
 ALTER TABLE `avis`
-  ADD CONSTRAINT `avis_ibfk_1` FOREIGN KEY (`IdArtiste`) REFERENCES `artistes` (`IdArtiste`);
+  ADD CONSTRAINT `avis_ibfk_1` FOREIGN KEY (`IdArtiste`) REFERENCES `artistes` (`IdArtiste`),
+  ADD CONSTRAINT `avis_ibfk_2` FOREIGN KEY (`IdUser`) REFERENCES `utilisateurs` (`IdUser`);
 
 --
 -- Contraintes pour la table `images`

@@ -151,39 +151,73 @@ session_start();
             mysqli_select_db($connexion, "projet_bdd");
 
             //Récupération des données
-            $req = 'SELECT * FROM avis WHERE IdArtiste = '.$id.';';
+            $req = 'SELECT * FROM avis WHERE IdArtiste = '.$id.' ORDER BY DateAvis DESC;';
             $res = mysqli_query($connexion, $req);
-            $avis = mysqli_fetch_array($res);
-
-            //Récupération de l'avatar de l'utilisateur
-            $req2 = 'SELECT Avatar FROM utilisateurs WHERE IdUser = '.$avis['IdUser'].';';
-            $res2 = mysqli_query($connexion, $req2);
-            $avatar = mysqli_fetch_array($res2)['Avatar'];
-
-            echo '<li class="depth-1">';
-
-                echo '<div class="comment-info">';
-                echo '<img alt="" src="images/'.$avatar.'" class="avatar" height="40" width="40" />';
-                    echo '<cite>';
-                    echo '<a href="index.php">'.$nom_user.'</a> Says: <br />';
-                    echo '<span class="comment-data"><a href="#comment-63" title="">'.$avis['DateAvis'].'</a></span>';
-                    echo '</cite>';
-                echo '</div>';
             
-                echo '<div class="comment-text">';
-                    echo '<p>'.$avis['TexteAvis'].'</p>';
-                    echo '<div class="reply">';
+            while ($avis = mysqli_fetch_array($res)) {
+           
+                //Récupération de l'avatar de l'utilisateur
+                $req2 = 'SELECT Avatar, Pseudo FROM utilisateurs WHERE IdUser = '.$avis['IdUser'].';';
+                $res2 = mysqli_query($connexion, $req2);
+                $user = mysqli_fetch_array($res2);
+    
+                echo '<li class="depth-1">';
+    
+                    echo '<div class="comment-info">';
+                    echo '<img alt="" src="images/'.$user['Avatar'].'" class="avatar" height="40" width="40" />';
+                        echo '<cite>';
+                        echo '<a href="index.php">'.$user['Pseudo'].'</a> Says: <br />';
+                        echo '<span class="comment-data"><a href="#comment-63" title="">'.$avis['DateAvis'].'</a></span>';
+                        echo '</cite>';
+                    echo '</div>';
+                
+                    echo '<div class="comment-text">';
+                        echo '<p>'.$avis['TexteAvis'].'</p>';
+                    echo '</div>';
+                echo '</li>';
+            } 
+            
+            mysqli_close($connexion);
 
-                    echo '<a rel="nofollow" class="comment-reply-link" href="index.php">Reply</a>';
-                echo '</div></div>';
-            echo '</li>';
-
-             
             ?>     
 
         </ol>
 		
     </section>
         
-</div>
+    
+	<!-- sidebar ------------------------------------->
+    <aside id="sidebar">
+        
+        <div class="sidemenu">
+            <h3>Menu Latéral</h3>
+            <ul>
+                <li id="current"><a href="index.php">Accueil</a><span></span></li>
+                <li><a href="index.php">Contact</a><span></span></li>
+                <?php
 
+                    //Utilisateur est connecté
+                    if (isset($_SESSION['pseudo'])and isset($_SESSION['admin']))
+                    {
+                        echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
+                            //Utilisateur connecté et administrateur
+                            if ($_SESSION['admin'] == 1)
+                            {
+                            echo'<li><a href="publier.php">Publier</a><span></span></li>';
+                        }
+                    }
+                    //Utilisateur n'est pas connecté
+                    else 
+                    {
+                        echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
+                        echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
+                    }
+                    
+                    ?> 
+                </ul>
+
+                <!-- /sidebar -->
+            </aside>
+            
+</div>
+            
