@@ -56,6 +56,7 @@ If(isset($_FILES['nom_fichier']['name'])&&($_FILES['nom_fichier']['error']== UPL
 
 {
 	$chemin_destination = 'images/';
+	
 	move_uploaded_file($_FILES['nom_fichier']['tmp_name'],$chemin_destination.$_FILES['nom_fichier']['name']);
  
 	//connexion à la bd

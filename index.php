@@ -190,6 +190,10 @@ session_start();
 
 						echo '<div class="content">';
 							echo '<p>'.$enr_artiste['TexteArtiste'].'[...]</p>';
+<<<<<<< Updated upstream
+=======
+							//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
+>>>>>>> Stashed changes
 							echo '<p><a href="artiste.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
 						echo '</div>';
 					echo '</article>';

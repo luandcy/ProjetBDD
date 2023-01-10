@@ -88,7 +88,7 @@ If (!empty($_POST["pseudo"])and!empty($_POST["mail"])and!empty($_POST["pass"])an
 	die("Vous n'avez pas complété tous les champs!");
 }	
 
-//SI ADMINISTRATEUR
+//SI ADMINISTRATEUR     ???????????
 If ($_POST["confirm"] == "oui")
 {	
  
