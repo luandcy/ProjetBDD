@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <head>
     
@@ -6,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-    <title>Jungleland</title>
+    <title>MUZIK</title>
     
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
     <body id="top">
@@ -20,42 +24,58 @@
 <!-- head
 ============================================================================= -->
 
-<div id="header-wrap">
-		<header>
+		<div id="header-wrap">
+			<header>
 
-        	<nav><ul>
+				<!--Menu-->
+				
+			<nav>
+			<ul>
 				<li id="current"><a href="index.php">Accueil</a><span></span></li>
 				<li><a href="index.php">Contact</a><span></span></li>
-				<li><a href="publier.php">Publier</a><span></span></li>
-				<?php 
-					if (!isset($_SESSION['pseudo'])) { 
-						echo '<li><a href="connexion.php">Connexion</a><span></span></li>';
-						echo '<li><a href="inscription.php">Inscription</a><span></span></li>';
-					}
-					else {
-						echo '<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';		
+				
+				<?php
+				
+				//Utilisateur est connecté
+					if (isset($_SESSION['pseudo'])and isset($_SESSION['admin']))
+					{
+						echo '<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';	
+						//Utilisateur connecté et administrateur
+						if ($_SESSION['admin'] == 1)
+						{
+							echo '<li><a href="publier.php">Publier</a><span></span></li>';	
 						}
+					}
+				//Utilisateur n'est pas connecté
+					else 
+					{
+						echo '<li><a href="connexion.php">Connexion</a><span></span></li>';
+						echo '<li><a href="inscription.php">Inscription</a><span></span></li>';					
+					}
+					
 				?>
-			</ul></nav>
+			</ul>
+			</nav>
 					
 			<div class="subscribe">
+			
 				<?php 
-				if (isset($_SESSION['pseudo'])) {
+				//Affichage du pseudo quand l'utilisateur est connecté
+				if (isset($_SESSION['pseudo'])) 
+				{
 					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
 				}
-				else {
-				echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';}?>
-			</div>
-						
-			<form id="quick-search" method="get" action="recherche.php">
-				<fieldset class="search">
-					<label for="qsearch">Rechercher Artiste:</label>
-					<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l'artiste" />
-					<button class="btn" title="Confirmer">Search</button>
-				</fieldset>
-			</form>	
-		</header>
-</div>
+				//Affichage du mot "utilisateur" quand l'utilisateur n'est pas connecté
+				else 
+				{
+					echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';
+				}
+				?>
+			
+			</div>	
+			
+			</header>
+		</div>
 
 <div id="content-wrap">
 
@@ -108,7 +128,10 @@
                     echo '</div>';
 
                     echo $artiste['TexteArtiste'];
-
+					
+					//Pour commenter et donner une note à la publication
+					echo '<p></span><a class="" href="avis.php?artiste='.$id.'">Donner un avis</a></p>';
+					
                     echo '<p class="tags"><span>Genre musical : </span>';
                     echo '<a href="#">'.$nom_genre.'</a></p>';
 
@@ -142,7 +165,7 @@
                 echo '<div class="comment-info">';
                 echo '<img alt="" src="images/'.$avatar.'" class="avatar" height="40" width="40" />';
                     echo '<cite>';
-                    echo '<a href="index.html">'.$nom_user.'</a> Says: <br />';
+                    echo '<a href="index.php">'.$nom_user.'</a> Says: <br />';
                     echo '<span class="comment-data"><a href="#comment-63" title="">'.$avis['DateAvis'].'</a></span>';
                     echo '</cite>';
                 echo '</div>';
@@ -151,7 +174,7 @@
                     echo '<p>'.$avis['TexteAvis'].'</p>';
                     echo '<div class="reply">';
 
-                    echo '<a rel="nofollow" class="comment-reply-link" href="index.html">Reply</a>';
+                    echo '<a rel="nofollow" class="comment-reply-link" href="index.php">Reply</a>';
                 echo '</div></div>';
             echo '</li>';
 
@@ -159,6 +182,7 @@
             ?>     
 
         </ol>
+		
     </section>
         
 </div>

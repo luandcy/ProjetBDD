@@ -18,83 +18,107 @@ session_start();
 		<div id="header-wrap">
 			<header>
 
-				<!-- 
-				Problème : je n'arrive pas à afficher le logo 
-				<hgroup>
-					<h1><a href="index.php">Blog de Musique</a></h1>
-					<h3>Nathanael et Luan</h3>
-				</hgroup>
-				-->
-
 				<!--Menu-->
-<?php
-//L'utilisateur est connecté
-if (isset($_SESSION['pseudo'])){
-	$pseudo = $_SESSION['pseudo'];
-				echo'<nav>';
-					echo'<ul>';
-						echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-						echo'<li><a href="index.php">Contact</a><span></span></li>';
-						//Afficher si utilisateur est admin
-						echo'<li><a href="publier.php">Publier</a><span></span></li>';
-						echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
-
-					echo'</ul>';
-				echo'</nav>';
-
-				echo'<div class="subscribe">';
+				
+			<nav>
+			<ul>
+				<li id="current"><a href="index.php">Accueil</a><span></span></li>
+				<li><a href="index.php">Contact</a><span></span></li>
+				
+				<?php
+				
+				//Utilisateur est connecté
+					if (isset($_SESSION['pseudo'])and isset($_SESSION['admin']))
+					{
+						echo '<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';	
+						//Utilisateur connecté et administrateur
+						if ($_SESSION['admin'] == 1)
+						{
+							echo '<li><a href="publier.php">Publier</a><span></span></li>';	
+						}
+					}
+				//Utilisateur n'est pas connecté
+					else 
+					{
+						echo '<li><a href="connexion.php">Connexion</a><span></span></li>';
+						echo '<li><a href="inscription.php">Inscription</a><span></span></li>';					
+					}
+					
+				?>
+			</ul>
+			</nav>
+					
+			<div class="subscribe">
+			
+				<?php 
+				//Affichage du pseudo quand l'utilisateur est connecté
+				if (isset($_SESSION['pseudo'])) 
+				{
 					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
-				echo'</div>';
-
-				//Recherche par nom d'artiste
-				/*echo'<form id="quick-search" method="get" action="index.html">';
-					echo'<fieldset class="search">';
-						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
-						echo'<button class="btn" title="Confirmer">Search</button>';
-					echo'</fieldset>';
-				echo'</form>';*/
-}
-
-//L'utisateur n'est pas connecté
-else{
-				echo'<nav>';
-					echo'<ul>';
-						echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-						echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-						echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-						echo'<li><a href="index.php">Contact</a><span></span></li>';
-						//Afficher si utilisateur est admin
-					echo'</ul>';
-				echo'</nav>';
-
-				echo'<div class="subscribe">';
+				}
+				//Affichage du mot "utilisateur" quand l'utilisateur n'est pas connecté
+				else 
+				{
 					echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';
-				echo'</div>';
-
-				//Recherche par nom d'artiste
-				/*echo'<form id="quick-search" method="get" action="index.html">';
-					echo'<fieldset class="search">';
-						echo'<label for="qsearch">Rechercher Artiste:</label>';
-						echo'<input class="tbox" id="qsearch" type="text" name="recherche" value="Rechercher..." title="Rentrez le nom de l\'artiste" />';
-						echo'<button class="btn" title="Confirmer">Search</button>';
-					echo'</fieldset>';
-				echo'</form>';*/
-}
-
-?>
-
-	
-			</header></div>
+				}
+				?>
+			
+			</div>	
+			
+			</header>
+		</div>
 	
 	<!-- Contenu============================================================================== -->
 
 <div id="content-wrap-home">
+        
+	<article class="post">
 
-<!-- main -->
-<section id="main">		
-<?php
-	//Affichage d'un  artiste avec son id 
+           <!-- 
+			/*
+                    //Connexion à la base
+                    $connexion=mysqli_connect("localhost", "root", "");
+			        mysqli_select_db($connexion, "projet_bdd");
+
+                    //Récupération des données
+                    $req = 'SELECT * FROM artistes WHERE IdArtiste = '.$id.';';
+                    $res = mysqli_query($connexion, $req);
+                    $artiste=mysqli_fetch_array($res);
+
+                    //Récupération du l'auteur du texte (utilisateur)
+                    $req2 = 'SELECT Pseudo FROM utilisateurs WHERE IdUser = '.$artiste['IdUser'].';';
+                    $res2 = mysqli_query($connexion, $req2);
+                    $nom_user=mysqli_fetch_array($res2)['Pseudo'];
+
+                    //Récupération du nom de l'image artiste
+                    $req3 = 'SELECT NomImage FROM images WHERE IdArtiste = '.$id.';';
+                    $res3 = mysqli_query($connexion, $req3);
+                    $nom_image=mysqli_fetch_array($res3)['NomImage'];
+
+                    //Récupération du genre de l'artiste
+                    $req4 = 'SELECT NomGenre FROM genres WHERE IdGenre = '.$artiste['IdGenre'].';';
+                    $res4 = mysqli_query($connexion, $req4);
+                    $nom_genre=mysqli_fetch_array($res4)['NomGenre'];
+
+                    //Affichage
+                    echo '<h1>'.$artiste['NomArtiste'].'</h1>';
+                    
+                    echo '<p class="post-info">Publié par <a href="index.php">'.$nom_user.'</a> | <span class="datetime">'.$artiste['DatePublicationArtiste'].'</span></p>';
+                    echo '<div class="image-section">';
+                        echo '<img src="images/'.$nom_image.'" alt="image post" width="550" height="210"/>';
+                    echo '</div>';
+
+                    echo $artiste['TexteArtiste'];
+
+                    echo '<p class="tags"><span>Genre musical : </span>';
+                    echo '<a href="#">'.$nom_genre.'</a></p>';
+
+                mysqli_close($connexion);
+			*/	
+			-->
+	<?php
+	
+		//Affichage d'un  artiste à partir de son id 
 		$artiste = $_GET["recherche"];
 	
 		$connexion=mysqli_connect("localhost", "root", "");
@@ -103,7 +127,8 @@ else{
 		$req= 'SELECT * FROM artistes WHERE NomArtiste LIKE "'.$artiste.'";';
 		$res = mysqli_query($connexion, $req);
 
-			while ($enr_artiste=mysqli_fetch_array($res)){
+			while ($enr_artiste=mysqli_fetch_array($res))
+			{
 
 				$num_artiste = $enr_artiste['IdArtiste'];
 
@@ -117,102 +142,25 @@ else{
 				$req3 = 'SELECT * FROM avis WHERE IdArtiste = '.$num_artiste.';';
 				$res3 = mysqli_query($connexion, $req3);
 				$count = mysqli_num_rows($res3);
+				
+				//Affichage
+                    echo '<h1>'.$enr_artiste['NomArtiste'].'</h1>';
+                    
+                    echo '<p class="post-info">Publication du <span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span></p>';
+                    echo '<div class="image-section">';
+                    echo '<img src="images/'.$nom_image['NomImage'].'" alt="image post" width="550" height="210"/>';
+                    echo '</div>';
+                    echo $enr_artiste['TexteArtiste'];
+					echo '<p></span><a class="" href="avis.php?artiste='.$enr_artiste['IdArtiste'].'">Donner un avis</a></p>';//Pour commenter et donner une note à la publication
+                    echo '<p class="tags"><span>Note </span>';
+                    echo '<a href="#">'.$enr_artiste['NoteArtiste'].'</a></p>';
 
-					echo '<article class="col">';
-						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
-						//echo '<a href="index.php" title="photo de l\'artiste x"><img width="275" height="175" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
-
-						echo '<div class="top">';
-						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
-						echo '<p><span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span><a class="comment" href="index.php">'.$count.' Commentaires</a></p>';
-						echo '</div>';
-
-						echo '<div class="content">';
-						echo '<p>'.$enr_artiste['TexteArtiste'].'</p>';
-						//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
-					echo '</article>';
+			}
+				mysqli_close($connexion);		
 						
-					echo '<article class="col even">';
-	
-						//Pour mettre les commentaires et les notes
-						echo'<form action="avis2.php" method="POST">';
-						echo'Ecrivez votre commentaire.<br/>';
-						
-						echo'<textarea name="msg" rows="" cols="""></textarea><br/>';
-						echo'Note<br/>';
-						echo'<input type="radio" name="note"  value="1"/> 1';
-						echo'<input type="radio" name="note"  value="2"/> 2';
-						echo'<input type="radio" name="note"  value="3"/> 3';
-						echo'<input type="radio" name="note"  value="4"/> 4';
-						echo'<input type="radio" name="note"  value="5"/> 5<br/>';
-						
-						echo'<center>';
-						echo'<input type="submit" value="ENVOYER"/>';
-						echo'<input type="reset" value="SUPPRIMER"/><br/><br/>';
-						echo'<center/>';
-
-						echo'</form><br/>';
-						
-						echo '</div>';
-						
-					echo '</article>';
-				}
-		mysqli_close($connexion);
-?>
-</section>
-
-
-<!-- sidebar -->
-<!-- <aside id="sidebar">
-
-<?php
-//L'utilisateur est connecté
-//if (isset($_SESSION['pseudo'])){
-	//$pseudo = $_SESSION['pseudo'];
-	//echo'<div class="sidemenu">';
-				//echo'<h3>Menu Latéral</h3>';
-				//echo'<ul>';
-					//echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					////ajouter page de contact?
-					//echo'<li><a href="index.php">Contact</a><span></span></li> ';
-					//echo'<li><a href="publier.php">Publier</a><span></span></li>';
-					//echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
-
-				//echo'</ul>';
-	//echo'</div>';
-//}
-////L'utisateur n'est pas connecté
-//else{
-	//echo'<div class="sidemenu">';
-				//echo'<h3>Menu Latéral</h3>';
-				//echo'<ul>';
-					//echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					//echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-					//echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-					////ajouter page de contact?
-					//echo'<li><a href="index.php">Contact</a><span></span></li> ';
-				//echo'</ul>';
-	//echo'</div>';
-//}
-
-?>
-
-		<!--	<h3>Galerie de photos</h3>
-
-			<ul class="photostream clearfix">
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-			</ul>
-		-->
-
-<!-- /sidebar -->
-</aside>
-
-
+     ?>
+	 
+    </article>
 </body>
 
 </html>

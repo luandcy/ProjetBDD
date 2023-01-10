@@ -17,33 +17,56 @@ session_start();
 	<!--Menu----------------------------------->
 	<div id="header-wrap">
 		<header>
-            <hgroup>
-                <h1><img width="240" height="100" alt="img" src="images/logo_zik.png" /></h1>
-                <h3>Un blog de musique</h3>
-            </hgroup>
-
-        	<nav><ul>
+            
+				<h1><br/></h1>
+				<br/>
+                <center>
+					<h2><img width="200"height="95" src="images/logo2.png"/><h2>
+				</center>
+				
+        	<nav>
+			<ul>
 				<li id="current"><a href="index.php">Accueil</a><span></span></li>
 				<li><a href="index.php">Contact</a><span></span></li>
-				<li><a href="publier.php">Publier</a><span></span></li>
-				<?php 
-					if (!isset($_SESSION['pseudo'])) { 
-						echo '<li><a href="connexion.php">Connexion</a><span></span></li>';
-						echo '<li><a href="inscription.php">Inscription</a><span></span></li>';
-					}
-					else {
-						echo '<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';		
+				
+				<?php
+				
+				//Utilisateur est connecté
+					if (isset($_SESSION['pseudo'])and isset($_SESSION['admin']))
+					{
+						echo '<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';	
+						//Utilisateur connecté et administrateur
+						if ($_SESSION['admin'] == 1)
+						{
+							echo '<li><a href="publier.php">Publier</a><span></span></li>';	
 						}
+					}
+				//Utilisateur n'est pas connecté
+					else 
+					{
+						echo '<li><a href="connexion.php">Connexion</a><span></span></li>';
+						echo '<li><a href="inscription.php">Inscription</a><span></span></li>';					
+					}
+					
 				?>
-			</ul></nav>
+			</ul>
+			</nav>
 					
 			<div class="subscribe">
+			
 				<?php 
-				if (isset($_SESSION['pseudo'])) {
+				//Affichage du pseudo quand l'utilisateur est connecté
+				if (isset($_SESSION['pseudo'])) 
+				{
 					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
 				}
-				else {
-				echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';}?>
+				//Affichage du mot"utilisateur" quand l'utilisateur n'est pas connecté
+				else 
+				{
+					echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';
+				}
+				?>
+				
 			</div>
 						
 			<form id="quick-search" method="get" action="recherche.php">
@@ -136,11 +159,11 @@ session_start();
 						echo '<div class="top">';
 						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
 						echo '<p><span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span><a class="comment" href="index.php">'.$count.' Commentaires</a></p>';
+						echo '<p></span><a class="" href="avis.php?artiste='.$num_artiste.'">Donner un avis</a></p>';//Pour commenter et donner une note à la publication
 						echo '</div>';
 
 						echo '<div class="content">';
 							echo '<p>'.$enr_artiste['TexteArtiste'].'[...]</p>';	
-                        	//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
 							echo '<p><a href="artiste.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
 
 						echo '</div>';
@@ -153,12 +176,13 @@ session_start();
 						echo '<div class="top">';
 						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
 						echo '<p><span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span><a class="comment" href="index.php">'.$count.' Commentaires</a></p>';
+						echo '<p></span><a class="" href="artiste.php?artiste='.$num_artiste.'">Donner un avis</a></p>';//Pour commenter et donner une note à la publication
 						echo '</div>';
 
 						echo '<div class="content">';
 							echo '<p>'.$enr_artiste['TexteArtiste'].'[...]</p>';
 							//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
-							echo '<p><a href="artiste.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
+							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
 						echo '</div>';
 					echo '</article>';
                 }
@@ -171,48 +195,32 @@ session_start();
 	<!-- sidebar ------------------------------------->
 <aside id="sidebar">
 
-<!-- <?php
-//L'utilisateur est connecté
-if (isset($_SESSION['pseudo'])){
-	$pseudo = $_SESSION['pseudo'];
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-					echo'<li><a href="publier.php">Publier</a><span></span></li>';
-					echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
+	<div class="sidemenu">
+				<h3>Menu Latéral</h3>
+					<ul>
+						<li id="current"><a href="index.php">Accueil</a><span></span></li>
+						<li><a href="index.php">Contact</a><span></span></li>
+						<?php
 
-				echo'</ul>';
-	echo'</div>';
-}
-//L'utisateur n'est pas connecté
-else{
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-					echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-				echo'</ul>';
-	echo'</div>';
+						//Utilisateur est connecté
+							if (isset($_SESSION['pseudo'])and isset($_SESSION['admin']))
+							{
+								echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
+								//Utilisateur connecté et administrateur
+								if ($_SESSION['admin'] == 1)
+								{
+								echo'<li><a href="publier.php">Publier</a><span></span></li>';
+								}
+							}
+						//Utilisateur n'est pas connecté
+							else 
+							{
+								echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
+								echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
+							}
 
-}
-?> -->
-			<h3>Galerie de photos</h3>
-
-			<ul class="photostream clearfix">
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-				<li><a href="index.html"><img width="50" height="50" alt="thumbnail" src="images/thumb.jpg"></a></li>
-			</ul>
-
+						?> 
+					</ul>
 
 <!-- /sidebar -->
 </aside>
