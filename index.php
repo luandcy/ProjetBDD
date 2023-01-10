@@ -27,7 +27,7 @@ session_start();
         	<nav>
 			<ul>
 				<li id="current"><a href="index.php">Accueil</a><span></span></li>
-				<li><a href="index.php">Contact</a><span></span></li>
+				<li><a href="#contact">Contact</a><span></span></li>
 				
 				<?php
 				
@@ -82,26 +82,34 @@ session_start();
 
 	<!--Artiste du mois----------------------------------->
 
-    <div id="featured-wrap"><article id="featured" class="clearfix">
+    <div id="featured-wrap">
+	<article id="featured" class="clearfix">
 		<h2>Artiste du mois</h2>
 
 		<!--Récupération de la publication la plus récente (problème : et si on publie plus d'un artiste par mois?)-->
 		<!--éventuellement on pourra choisir un artiste en faisant une requête sur un artiste d'ou on connait le nom et qu'on veut mettre en évidence-->
 		<?php
+			//Connexion à la base
 			$connexion=mysqli_connect("localhost", "root", "");
 			mysqli_select_db($connexion, "projet_bdd");
-
-            $req = 'SELECT IdArtiste, SUBSTRING(TexteArtiste, 1, 300) AS TexteArtiste, NomArtiste, DatePublicationArtiste 
+			
+			//Récupération des données sur l'artiste
+            $req = 'SELECT IdArtiste, SUBSTRING(TexteArtiste, 1, 300) AS TexteArtiste, NomArtiste, DatePublicationArtiste, NoteArtiste ,IdUser
 					FROM artistes ORDER BY DatePublicationArtiste DESC;';
 			$res = mysqli_query($connexion, $req);
-
-			$enr_artiste=mysqli_fetch_array($res);
+			$enr_artiste = mysqli_fetch_array($res);
+			
+			//Récupération du l'auteur de la publication (utilisateur)
+            $req2 = 'SELECT Pseudo FROM utilisateurs WHERE IdUser = '.$enr_artiste['IdUser'].';';
+			$res2 = mysqli_query($connexion, $req2);
+			$nom_user = mysqli_fetch_array($res2)['Pseudo'];
 
 			//Récupération de l'image à partie de "IdArtiste"
-			$req2 = 'SELECT NomImage FROM images WHERE IdArtiste = '.$enr_artiste['IdArtiste'].'';
-			$res2=mysqli_query($connexion, $req2);
-			//Récupération de la 2ème requête (pas besoin de boucle car 1 seul enregistrement)
-            $nom_image = mysqli_fetch_array($res2);	?>
+			$req3 = 'SELECT NomImage FROM images WHERE IdArtiste = '.$enr_artiste['IdArtiste'].'';
+			$res3 = mysqli_query($connexion, $req3);
+			//Récupération de la 3ème requête (pas besoin de boucle car 1 seul enregistrement)
+            $nom_image = mysqli_fetch_array($res3);	
+		?>
 
 		<div class="image-block">
 			<a title="" href="#"><img width="335" height="240" alt="featured" src="images/<?php echo $nom_image['NomImage']; ?>" /></a>
@@ -109,13 +117,14 @@ session_start();
 
 		<div class="text-block">
 			<h2><a href="#"><?php echo $enr_artiste['NomArtiste']; ?></a></h2>
-			<p class="post-meta">Posted by <a href="index.html">nath</a> <span class="datetime"><?php echo $enr_artiste['DatePublicationArtiste'];?></span></p>
+			<p class="post-meta">Posté par <a href="index.php"><?php echo $nom_user ; ?></a>|<span class="datetime"><?php echo $enr_artiste['DatePublicationArtiste'];?></span></p>
 			<p><?php echo $enr_artiste['TexteArtiste']; ?>[...] </p>
-			<p><a href="index.php" class="more">Continuer la lecture</a></p>
-
+			<p><a href="artiste.php?artiste='<?php echo $enr_artiste['IdArtiste'];?>'"class="more">Continuer la lecture</a></p>
 		</div>
+		
 		<?php mysqli_close($connexion);?>
-	</article></div>
+	</article>
+	</div>
 		
 	<!-- Contenu----------------------------------->
 
@@ -176,13 +185,12 @@ session_start();
 						echo '<div class="top">';
 						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
 						echo '<p><span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span><a class="comment" href="index.php">'.$count.' Commentaires</a></p>';
-						echo '<p></span><a class="" href="artiste.php?artiste='.$num_artiste.'">Donner un avis</a></p>';//Pour commenter et donner une note à la publication
+						echo '<p></span><a class="" href="avis.php?artiste='.$num_artiste.'">Donner un avis</a></p>';//Pour commenter et donner une note à la publication
 						echo '</div>';
 
 						echo '<div class="content">';
 							echo '<p>'.$enr_artiste['TexteArtiste'].'[...]</p>';
-							//echo '<p><a href="#" class="more">Aller sur cette publication</a></p>';
-							echo '<p><a href="avis.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
+							echo '<p><a href="artiste.php?artiste='.$num_artiste.'"class="more">Continuer la lecture</a></p>';
 						echo '</div>';
 					echo '</article>';
                 }
@@ -225,8 +233,30 @@ session_start();
 <!-- /sidebar -->
 </aside>
 
-	
+<!--CONTACT ET MAIL-->
 
+<div id="extra-wrap">
+	<div id="extra" class="clearfix">
+	
+		<div class="col">
+
+		   <center> <h3 id="contact"> <a href ="index.php" > Nos contacts </a> </h3> </center>
+		
+			<center>
+				<p>
+					<strong>Tel Luan : </strong>+1234567<br/>
+					<strong>E-mail Luan : </strong> <a href ="" >luan.dechery@univ-lyon2.fr<a>
+
+				</p>
+				<p>
+					<strong>Tel Nathanaël : </strong>+1234567<br/>
+					<strong>E-mail Nathanaël : </strong> <a href ="" >rasambaharinosy-nath.rasoamanana@univ-lyon2.fr<a>
+				</p>
+			</center>
+			
+		</div>	
+	</div>	
+</div>	
 
 </body>
 

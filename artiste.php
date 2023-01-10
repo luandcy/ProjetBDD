@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 
 <!DOCTYPE html>
 <head>
@@ -24,12 +21,16 @@ session_start();
 <!-- head
 ============================================================================= -->
 
-		<div id="header-wrap">
-			<header>
-
-				<!--Menu-->
+<div id="header-wrap">
+		<header>
+            
+				<h1><br/></h1>
+				<br/>
+                <center>
+					<h2><img width="200"height="95" src="images/logo2.png"/><h2>
+				</center>
 				
-			<nav>
+        	<nav>
 			<ul>
 				<li id="current"><a href="index.php">Accueil</a><span></span></li>
 				<li><a href="index.php">Contact</a><span></span></li>
@@ -65,17 +66,24 @@ session_start();
 				{
 					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
 				}
-				//Affichage du mot "utilisateur" quand l'utilisateur n'est pas connecté
+				//Affichage du mot"utilisateur" quand l'utilisateur n'est pas connecté
 				else 
 				{
 					echo'<a href="#">Avatar</a> | <a href="#">utilisateur</a>';
 				}
 				?>
-			
-			</div>	
-			
-			</header>
-		</div>
+				
+			</div>
+						
+			<form id="quick-search" method="get" action="recherche.php">
+				<fieldset class="search">
+					<label for="qsearch">Rechercher Artiste:</label>
+					<input class="tbox" id="qsearch" type="text" name="recherche" value="Michael Jackson" title="Rentrez le nom de l'artiste" />
+					<button class="btn" title="Confirmer">Search</button>
+				</fieldset>
+			</form>	
+		</header>
+	</div>
 
 <div id="content-wrap">
 
@@ -128,12 +136,12 @@ session_start();
                     echo '</div>';
 
                     echo $artiste['TexteArtiste'];
-					
-					//Pour commenter et donner une note à la publication
-					echo '<p></span><a class="" href="avis.php?artiste='.$id.'">Donner un avis</a></p>';
-					
+					echo '<p></span><a class="" href="avis.php?artiste='.$id.'">Donner un avis</a></p>';//Pour commenter et donner une note à la publication
+
                     echo '<p class="tags"><span>Genre musical : </span>';
                     echo '<a href="#">'.$nom_genre.'</a></p>';
+					echo '<p class="tags"><span>Note de l\'artiste </span>';
+                    echo '<a href="#">'.$artiste['NoteArtiste'].'</a></p>';
 
                 mysqli_close($connexion);
             ?>
@@ -145,24 +153,25 @@ session_start();
 
             <?php
 
-            //!! Faire une boucle pour tout les commentaires
+            //!! Faire une boucle pour tou les commentaires
 
             $connexion=mysqli_connect("localhost", "root", "");
+           
             mysqli_select_db($connexion, "projet_bdd");
 
             //Récupération des données
             $req = 'SELECT * FROM avis WHERE IdArtiste = '.$id.' ORDER BY DateAvis DESC;';
             $res = mysqli_query($connexion, $req);
-            
+
             while ($avis = mysqli_fetch_array($res)) {
-           
+
                 //Récupération de l'avatar de l'utilisateur
                 $req2 = 'SELECT Avatar, Pseudo FROM utilisateurs WHERE IdUser = '.$avis['IdUser'].';';
                 $res2 = mysqli_query($connexion, $req2);
                 $user = mysqli_fetch_array($res2);
-    
+
                 echo '<li class="depth-1">';
-    
+
                     echo '<div class="comment-info">';
                     echo '<img alt="" src="images/'.$user['Avatar'].'" class="avatar" height="40" width="40" />';
                         echo '<cite>';
@@ -170,54 +179,18 @@ session_start();
                         echo '<span class="comment-data"><a href="#comment-63" title="">'.$avis['DateAvis'].'</a></span>';
                         echo '</cite>';
                     echo '</div>';
-                
+
                     echo '<div class="comment-text">';
                         echo '<p>'.$avis['TexteAvis'].'</p>';
                     echo '</div>';
                 echo '</li>';
             } 
-            
+
             mysqli_close($connexion);
 
-            ?>     
+            ?>         
 
         </ol>
-		
     </section>
         
-    
-	<!-- sidebar ------------------------------------->
-    <aside id="sidebar">
-        
-        <div class="sidemenu">
-            <h3>Menu Latéral</h3>
-            <ul>
-                <li id="current"><a href="index.php">Accueil</a><span></span></li>
-                <li><a href="index.php">Contact</a><span></span></li>
-                <?php
-
-                    //Utilisateur est connecté
-                    if (isset($_SESSION['pseudo'])and isset($_SESSION['admin']))
-                    {
-                        echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
-                            //Utilisateur connecté et administrateur
-                            if ($_SESSION['admin'] == 1)
-                            {
-                            echo'<li><a href="publier.php">Publier</a><span></span></li>';
-                        }
-                    }
-                    //Utilisateur n'est pas connecté
-                    else 
-                    {
-                        echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-                        echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-                    }
-                    
-                    ?> 
-                </ul>
-
-                <!-- /sidebar -->
-            </aside>
-            
 </div>
-            
