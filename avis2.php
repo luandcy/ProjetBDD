@@ -81,7 +81,11 @@ session_start();
 <?php
 If (!isset($_SESSION['pseudo']) OR $_SESSION['pseudo'] == "") 
 {
-	die('Vous devez être connecté pour faire cette action.');
+	echo'<center>';
+	echo'<h1>';
+		die('Vous devez être connecté pour faire cette action.');
+	echo'</h1>';
+ 	echo'</center>';
 }
 
 If (!empty($_POST["msg"]) and !empty($_POST["note"]))
@@ -94,7 +98,7 @@ If (!empty($_POST["msg"]) and !empty($_POST["note"]))
 	mysqli_select_db($connexion,"projet_bdd");
 
 	//Création de la requête d'insertion du message avec la fonction date() pour l'ajout des informations temporelles 
-	$req='INSERT INTO avis (IdUtilisateur, DateAvis, NoteAvis, IdArtiste, TexteAvis) VALUES ("'.$_SESSION['ID'].'", "'.date("Y/m/d H:i:s").'", '.$note.',"'.$_SESSION['artiste'].'", "'.$msg.'");'; 
+	$req='INSERT INTO avis (IdUser, DateAvis, NoteAvis, IdArtiste, TexteAvis) VALUES ("'.$_SESSION['ID'].'", "'.date("Y/m/d").'", '.$note.',"'.$_SESSION['artiste'].'", "'.$msg.'");'; 
 	//echo $req;
 
 	// Envoi de la requête 
@@ -104,12 +108,19 @@ If (!empty($_POST["msg"]) and !empty($_POST["note"]))
 	mysqli_close($connexion) ;
 	
 	// Affichage d'un message de confirmation
-	echo "Votre commentaire a bien été envoyé.<br/>";
-	echo'Le commentaire :'.$msg.'<br/><br/>';
+	echo'<center>';
+	echo'<h1>';
+		echo "Votre commentaire a bien été envoyé.<br/>";
+	echo'</h1>';
+ 	echo'</center>';
 }
 else
 {
- die("Vous n'avez pas mis votre avis sur cet artiste..");
+ 	echo'<center>';
+	echo'<h1>';
+		die("Vous n'avez pas mis votre avis sur cet artiste..");
+	echo'</h1>';
+ 	echo'</center>';
 }
 ?>
 </section>

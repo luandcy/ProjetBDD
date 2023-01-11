@@ -24,7 +24,6 @@ session_start();
 			<ul>
 				<li id="current"><a href="index.php">Accueil</a><span></span></li>
 				<li><a href="index.php">Contact</a><span></span></li>
-				
 				<?php
 				
 				//Utilisateur est connecté
@@ -81,12 +80,37 @@ If(!empty($_POST["pseudo"])and!empty($_POST["adress"])and!empty($_POST["pass"])a
  $mail = $_POST["adress"];
  $pass = $_POST["pass"];
  $pass2 = $_POST["confirmation"];
+ $admin = 0;
 }
 else
 {
-die("Les champs sont vides!");
+	echo'<center>';
+	echo'<h1>';
+		die("Les champs sont vides!");
+	echo'</h1>';
+ 	echo'</center>';
+}
+//Vérification du transfert
+If ($_FILES['nom_fichier']['error'])
+{
+	echo'<center>';
+	echo'<h1>';
+		die("Erreur lors du transfert d'image !");
+	echo'</h1>';
+ 	echo'</center>';
 }
 
+//Transfert de l'image dans le répertoire images
+
+If(isset($_FILES['nom_fichier']['name'])&&($_FILES['nom_fichier']['error']== UPLOAD_ERR_OK))
+{
+	$chemin_destination = 'images/';
+	move_uploaded_file($_FILES['nom_fichier']['tmp_name'],$chemin_destination.$_FILES['nom_fichier']['name']);
+ 
+	//connexion à la bd
+	$connexion = mysqli_connect("localhost","root","");
+	mysqli_select_db($connexion, "projet_bdd");
+}
 If($pass ==$pass2)
 { 
   //connexion à la base
@@ -94,7 +118,7 @@ If($pass ==$pass2)
   mysqli_select_db($connexion,"projet_bdd");
   
   //création de la requête
-  $req = 'INSERT INTO utilisateurs (Pseudo, Password, Mail) VALUES ("'.$pseudo.'","'.$pass.'","'.$mail.'");';
+  $req = 'INSERT INTO utilisateurs (Pseudo, Password, Mail, Administrateur, Avatar) VALUES ("'.$pseudo.'","'.$pass.'","'.$mail.'","'.$admin.'","'.$_FILES['nom_fichier']['name'].'");';
   //echo $req.'<br/>';
   
   //envoi de la requête
@@ -108,13 +132,25 @@ If($pass ==$pass2)
 }
 else
 {
+	echo'<center>';
+	echo'<h1>';
+		die("Mot de passe invalide !");
+	echo'</h1>';
+ 	echo'</center>';
 	die("Mot de passe invalide !");
 }
 	
  //Compter le nombre de résultats
  if (mysqli_num_rows($res) == 1){
-	 echo'Vous êtes connecté! Bienvenue '.$pseudo.' !';//L'utilisateur existe!
+	 
+	echo'<center>';
+	echo'<h1>';
+	 echo'Vous êtes connecté! <br/> Bienvenue '.$pseudo.' !';
+	echo'</h1>';
+ 	echo'</center>';
+	
 	 $_SESSION['pseudo']=$pseudo;
+	 $_SESSION['admin']=$admin;
 	 //Recup info sur user
 	 $enreg_utilisateur = mysqli_fetch_array($res);
 	 //Ajout de l'id à la session
@@ -124,46 +160,12 @@ else
   //fermeture de la connexion
   mysqli_close($connexion);
   
-  echo'Vous avez été enregistré avec le pseudo :'.$pseudo; 
+  
+  //Récupération du pseudo sur la session
   $_SESSION['pseudo']=$pseudo;	
 ?>
 
 </section>
-
-<!-- sidebar -->
-<aside id="sidebar">
-<?php
-//L'utilisateur est connecté
-if (isset($_SESSION['pseudo'])){
-	$pseudo = $_SESSION['pseudo'];
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-					echo'<li><a href="publier.php">Publier</a><span></span></li>';
-					echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
-
-				echo'</ul>';
-	echo'</div>';
-}
-//L'utisateur n'est pas connecté
-else{
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-					echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-				echo'</ul>';
-	echo'</div>';
-
-}
-?>
-<!-- /sidebar -->
 </aside>
 </body>
 
