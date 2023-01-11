@@ -92,7 +92,7 @@ If (!empty($_POST["pseudo"])and!empty($_POST["mail"])and!empty($_POST["pass"])an
  	echo'</center>';
 }	
 
-//SI ADMINISTRATEUR
+//SI ADMINISTRATEUR     ???????????
 If ($_POST["confirm"] == "oui")
 {	
  
