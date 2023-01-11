@@ -74,45 +74,41 @@ session_start();
 
 <!-- main -->
 <section id="main">		
-<?php
-	//Ajouter un artiste
-						
-						echo'REMPLISSEZ POUR AJOUTER UN ARTISTE';
-						echo'<form action = "publier2.php" method = "POST" ENCTYPE = "multipart/form-data">';
-						
-						echo'<h3>Nom de l\'artiste</h3>';
-						echo'<input type="text" size="" name="nom_artiste"/><br/>';
-						
-						echo'<h3>Photo de l\'artiste</h3>';
-						echo'<input type = "hidden" name = "MAX_FILE_SIZE"  value = 100000 />';
-						echo'<input type = "file" name = "nom_fichier" /><br/>';
 
-						
-						echo'<h3>Biographie</h3><br/>';
-						echo'<textarea name = "descri" rows = "" cols = ""> </textarea><br/>';
-						
-						echo'<h3>Genre musical</h3>';
-						echo'<input type="radio" name="genre"  value="1"/> POP<br/>';
-						echo'<input type="radio" name="genre"  value="2"/> R and B<br/>';
-						echo'<input type="radio" name="genre"  value="3"/> ROCK and ROLL<br/>';
-						echo'<input type="radio" name="genre"  value="4"/> JAZZ<br/>';
-						echo'<input type="radio" name="genre"  value="5"/> RAP<br/>';
-						echo'<input type="radio" name="genre"  value="6"/> REGGAE<br/>';
-						
-						echo'<h3>Evaluer l\'artiste</h3>';
-						echo'<input type="radio" name="note"  value="1"/> 1';
-						echo'<input type="radio" name="note"  value="2"/> 2';
-						echo'<input type="radio" name="note"  value="3"/> 3';
-						echo'<input type="radio" name="note"  value="4"/> 4';
-						echo'<input type="radio" name="note"  value="5"/> 5<br/>';
-						
-						
-						echo'<center>';
-						echo'<input type="submit" value="PUBLIER"/>';
-						echo'<center/>';
+	<h1>Ajouter un artiste</h1>
+	
+	<form action = "publier2.php" method = "POST" ENCTYPE = "multipart/form-data">
+		
+		<h3>Nom de l'artiste</h3>
+		<input type="text" size="" name="nom_artiste"/><br/>
 
-						echo'</form><br/>';
-?>
+		<h3>Photo de l'artiste</h3>
+		<input type = "hidden" name = "MAX_FILE_SIZE"  value = 100000 />
+		<input type = "file" name = "nom_fichier" /><br/>
+
+		<h3>Texte</h3><br/>
+		<textarea name = "descri" rows = "15" cols = "50"> </textarea><br/>
+
+		<h3>Genre musical</h3>
+		<input type="radio" name="genre"  value="1"/> POP<br/>
+		<input type="radio" name="genre"  value="2"/> R and B<br/>
+		<input type="radio" name="genre"  value="3"/> ROCK and ROLL<br/>
+		<input type="radio" name="genre"  value="4"/> JAZZ<br/>
+		<input type="radio" name="genre"  value="5"/> RAP<br/>
+		<input type="radio" name="genre"  value="6"/> REGGAE<br/>
+
+		<h3>Evaluer l'artiste</h3>
+		<input type="radio" name="note"  value="1"/> 1
+		<input type="radio" name="note"  value="2"/> 2
+		<input type="radio" name="note"  value="3"/> 3
+		<input type="radio" name="note"  value="4"/> 4
+		<input type="radio" name="note"  value="5"/> 5<br/>
+
+		<center>
+		<input type="submit" value="PUBLIER"/>
+		<center/>
+	</form>
+
 </section>
 
 </body>
