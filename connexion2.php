@@ -85,7 +85,11 @@ If (!empty($_POST["pseudo"])and!empty($_POST["mail"])and!empty($_POST["pass"])an
 }
  else
 {
-	die("Vous n'avez pas complété tous les champs!");
+	echo'<center>';
+	echo'<h1>';
+		die("Vous n'avez pas complété tous les champs!");
+	echo'</h1>';
+ 	echo'</center>';
 }	
 
 //SI ADMINISTRATEUR
@@ -106,7 +110,11 @@ If ($_POST["confirm"] == "oui")
 	//Compter le nombre de résultats
 	if (mysqli_num_rows($res) == 1)
 	{
-		echo'<br/>Bienvenue '.$pseudo.' !';//L'utilisateur existe!
+		echo'<center>';
+		echo'<h1>';
+			echo'<br/>Bienvenue '.$pseudo.' !';//L'utilisateur existe!
+		echo'</h1>';
+		echo'</center>';
 		$_SESSION['pseudo']=$pseudo;
 		$_SESSION['admin']=$admin;//Variable à récupérer pour la gestion de l'autorisation de publier du contenu
 
@@ -118,7 +126,11 @@ If ($_POST["confirm"] == "oui")
 	}
 	else
 	{
-		echo'Utilisateur non identifié !';
+		echo'<center>';
+		echo'<h1>';
+			echo'Utilisateur non identifié !';
+		echo'</h1>';
+		echo'</center>';
 	}
 
 	//fermeture 
@@ -155,7 +167,11 @@ else
 	}
 	else
 	{
-		echo'Utilisateur non identifié !';
+		echo'<center>';
+		echo'<h1>';
+			echo'Utilisateur non identifié !';
+		echo'</h1>';
+		echo'</center>';
 	}
 
 
@@ -165,43 +181,6 @@ else
 ?>
 
 </section>
-
-<!-- sidebar -->
-<aside id="sidebar">
-
-<?php
-//L'utilisateur est connecté
-if (isset($_SESSION['pseudo'])){
-	$pseudo = $_SESSION['pseudo'];
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-					echo'<li><a href="publier.php">Publier</a><span></span></li>';
-					echo'<li><a href="deconnexion.php">Déconnexion</a><span></span></li>';
-
-				echo'</ul>';
-	echo'</div>';
-}
-//L'utisateur n'est pas connecté
-else{
-	echo'<div class="sidemenu">';
-				echo'<h3>Menu Latéral</h3>';
-				echo'<ul>';
-					echo'<li id="current"><a href="index.php">Accueil</a><span></span></li>';
-					echo'<li><a href="connexion.php">Connexion</a><span></span></li>';
-					echo'<li><a href="inscription.php">Inscription</a><span></span></li>';
-					//ajouter page de contact?
-					echo'<li><a href="index.php">Contact</a><span></span></li> ';
-				echo'</ul>';
-	echo'</div>';
-
-}
-?>
-
-<!-- /sidebar -->
 </aside>
 </body>
 

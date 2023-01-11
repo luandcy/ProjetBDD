@@ -82,7 +82,12 @@ echo'Vous êtes déjà connecté.';
 else{
 echo'<h1>Formulaire d\'inscription.</h1><br/><br/>';
 echo'Veuillez remplir le formulaire suivant:<br/><br/>';
-echo'<form action="inscription2.php" method="POST">';
+echo'<form action = "inscription2.php" method = "POST" ENCTYPE = "multipart/form-data">';
+
+//Ajouter une image pour l'utilisateur
+echo'<input type = "hidden" name = "MAX_FILE_SIZE"  value = 100000 />';
+echo'Choisir un avatar :<input type = "file" name = "nom_fichier" /><br/>';
+
 echo'<input type="text" size="" name="pseudo"/>Pseudo<br/><br/>';
 echo'<input type="mail" size="" name="adress"/>Adress e-mail<br/><br/>';
 echo'<input type="password" size="" name="pass"/>Mot de passe<br/><br/>'; 

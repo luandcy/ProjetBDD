@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <head>
@@ -32,6 +35,11 @@
 				
         	<nav>
 			<ul>
+					<!--Affichage de l'avatar dans la barre de menu-->
+						<?php
+						//echo'<li><img alt="" src="images/'.$_SESSION['avatar'].'" class="avatar" height="40" width="40" /></li>';
+						?>
+				
 				<li id="current"><a href="index.php">Accueil</a><span></span></li>
 				<li><a href="index.php">Contact</a><span></span></li>
 				
@@ -64,7 +72,8 @@
 				//Affichage du pseudo quand l'utilisateur est connecté
 				if (isset($_SESSION['pseudo'])) 
 				{
-					echo'<a href="#">Avatar</a> | <a href="#">'.$_SESSION['pseudo'].'</a>';
+					echo'<a href="#">'.$_SESSION['pseudo'].'</a> <br/>';
+
 				}
 				//Affichage du mot"utilisateur" quand l'utilisateur n'est pas connecté
 				else 
@@ -132,7 +141,7 @@
                     
                     echo '<p class="post-info">Publié par <a href="index.php">'.$nom_user.'</a> | <span class="datetime">'.$artiste['DatePublicationArtiste'].'</span></p>';
                     echo '<div class="image-section">';
-                        echo '<img src="images/'.$nom_image.'" alt="image post" width="550" height="210"/>';
+                    echo '<img src="images/'.$nom_image.'" alt="image post" width="400" height="400"/>';
                     echo '</div>';
 
                     echo $artiste['TexteArtiste'];
@@ -169,6 +178,7 @@
                 $req2 = 'SELECT Avatar, Pseudo FROM utilisateurs WHERE IdUser = '.$avis['IdUser'].';';
                 $res2 = mysqli_query($connexion, $req2);
                 $user = mysqli_fetch_array($res2);
+				$_SESSION['avatar'] = $user['Avatar']; 
 
                 echo '<li class="depth-1">';
 

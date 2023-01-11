@@ -81,8 +81,11 @@ session_start();
 
 $_SESSION = array();
 session_destroy();
-echo'L\'utilisateur est déconnecté !';
-
+		echo'<center>';
+		echo'<h1>';
+			echo'Vous êtes déconnecté(e) !';
+		echo'</h1>';
+		echo'</center>';
 ?>
 
 </section>

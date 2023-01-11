@@ -142,7 +142,7 @@ session_start();
                     
 					echo '<p class="post-info">Publié par <a href="index.php">'.$nom_user.'</a> | <span class="datetime">'.$enr_artiste['DatePublicationArtiste'].'</span></p>';
 					echo '<div class="image-section">';
-                    echo '<img src="images/'.$nom_image['NomImage'].'" alt="image post" width="550" height="210"/>';
+                    echo '<img src="images/'.$nom_image['NomImage'].'" alt="image post" width="400" height="400"/>';
 					echo '</div>';
 					
                     echo $enr_artiste['TexteArtiste'];
@@ -151,46 +151,43 @@ session_start();
                     echo '<a href="#">'.$nom_genre.'</a></p>';
                     echo '<p class="tags"><span>Note de l\'artiste </span>';
                     echo '<a href="#">'.$enr_artiste['NoteArtiste'].'</a></p>';
-			}
-				mysqli_close($connexion);		
+			
+				//mysqli_close($connexion);		
 						
-		?>
 		
-		<h3>Commentaires</h3>
-        <ol class="commentlist">
+					echo'<h3>Commentaires</h3>';
+					echo'<ol class="commentlist">';
 
-            <?php
+					//Faire une boucle pour tous les commentaires
 
-            //!! Faire une boucle pour tou les commentaires
-            $connexion=mysqli_connect("localhost", "root", "");
-            mysqli_select_db($connexion, "projet_bdd");
+					//Récupération des données dans avis
+					$req5 = 'SELECT * FROM avis WHERE IdArtiste = '.$num_artiste.' ORDER BY DateAvis DESC;';
+					$res5 = mysqli_query($connexion, $req5);
 
-            //Récupération des données
-            $req = 'SELECT * FROM avis WHERE IdArtiste = '.$num_artiste.' ORDER BY DateAvis DESC;';
-            $res = mysqli_query($connexion, $req);
+					while ($avis = mysqli_fetch_array($res5)) {
 
-            while ($avis = mysqli_fetch_array($res)) {
+						//Récupération de l'avatar de l'utilisateur
+						$req6 = 'SELECT Avatar, Pseudo FROM utilisateurs WHERE IdUser = '.$avis['IdUser'].';';
+						$res6 = mysqli_query($connexion, $req6);
+						$user = mysqli_fetch_array($res6);
+						
+					//Affichage des commentaire avec l'auteur et son avatar
+					echo '<li class="depth-1">';
 
-                //Récupération de l'avatar de l'utilisateur
-                $req2 = 'SELECT Avatar, Pseudo FROM utilisateurs WHERE IdUser = '.$avis['IdUser'].';';
-                $res2 = mysqli_query($connexion, $req2);
-                $user = mysqli_fetch_array($res2);
+						echo '<div class="comment-info">';
+						echo '<img alt="" src="images/'.$user['Avatar'].'" class="avatar" height="40" width="40" />';
+							echo '<cite>';
+							echo '<a href="index.php">'.$user['Pseudo'].'</a> Says: <br />';
+							echo '<span class="comment-data"><a href="#comment-63" title="">'.$avis['DateAvis'].'</a></span>';
+							echo '</cite>';
+						echo '</div>';
 
-                echo '<li class="depth-1">';
-
-                    echo '<div class="comment-info">';
-                    echo '<img alt="" src="images/'.$user['Avatar'].'" class="avatar" height="40" width="40" />';
-                        echo '<cite>';
-                        echo '<a href="index.php">'.$user['Pseudo'].'</a> Says: <br />';
-                        echo '<span class="comment-data"><a href="#comment-63" title="">'.$avis['DateAvis'].'</a></span>';
-                        echo '</cite>';
-                    echo '</div>';
-
-                    echo '<div class="comment-text">';
-                        echo '<p>'.$avis['TexteAvis'].'</p>';
-                    echo '</div>';
-                echo '</li>';
-            } 
+						echo '<div class="comment-text">';
+							echo '<p>'.$avis['TexteAvis'].'</p>';
+						echo '</div>';
+					echo '</li>';
+					} 
+			}
             mysqli_close($connexion);
 			
             ?> 

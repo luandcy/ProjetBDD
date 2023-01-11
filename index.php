@@ -84,10 +84,13 @@ session_start();
 
     <div id="featured-wrap">
 	<article id="featured" class="clearfix">
-		<h2>Artiste du mois</h2>
-
-		<!--Récupération de la publication la plus récente (problème : et si on publie plus d'un artiste par mois?)-->
-		<!--éventuellement on pourra choisir un artiste en faisant une requête sur un artiste d'ou on connait le nom et qu'on veut mettre en évidence-->
+		<br/>
+		<center>
+			<h4>Bienvenue sur le blog de Luan et Nathanaël</h4>
+			<p>MIASHS L3 2022-2023 _ Projet de base de données </p>
+		</center>
+		
+		<!--Récupération de la publication la plus récente -->
 		<?php
 			//Connexion à la base
 			$connexion=mysqli_connect("localhost", "root", "");
@@ -111,15 +114,16 @@ session_start();
             $nom_image = mysqli_fetch_array($res3);	
 		?>
 
-		<div class="image-block">
-			<a title="" href="#"><img width="335" height="240" alt="featured" src="images/<?php echo $nom_image['NomImage']; ?>" /></a>
-		</div>
-
 		<div class="text-block">
-			<h2><a href="#"><?php echo $enr_artiste['NomArtiste']; ?></a></h2>
+			<h1> Artiste du mois</h1>
+			<h3><a href="artiste.php?artiste='<?php echo $enr_artiste['IdArtiste'];?>'"><?php echo $enr_artiste['NomArtiste']; ?></a></h3>
 			<p class="post-meta">Posté par <a href="index.php"><?php echo $nom_user ; ?></a>|<span class="datetime"><?php echo $enr_artiste['DatePublicationArtiste'];?></span></p>
 			<p><?php echo $enr_artiste['TexteArtiste']; ?>[...] </p>
 			<p><a href="artiste.php?artiste='<?php echo $enr_artiste['IdArtiste'];?>'"class="more">Continuer la lecture</a></p>
+		</div>
+		
+		<div class="image-block">
+			<a title="" href="#"><img width="335" height="240" alt="featured" src="images/<?php echo $nom_image['NomImage']; ?>" /></a>
 		</div>
 		
 		<?php mysqli_close($connexion);?>
@@ -163,7 +167,7 @@ session_start();
 
 				if ($i % 2 == 0) {
 					echo '<article class="col">';
-						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
+						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="240" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
 
 						echo '<div class="top">';
 						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
@@ -180,7 +184,7 @@ session_start();
 					}	
 				if ($i % 2 != 0) {
 					echo '<article class="col even">';
-						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="100" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
+						echo '<a href="index.php" title="photo de l\'artiste x"><img width="240" height="240" alt="img" class="thumbnail" src="images/'.$nom_image['NomImage'].'" /></a>';
 
 						echo '<div class="top">';
 						echo '<h4><a href="index.php">'.$enr_artiste['NomArtiste'].'</a></h4>';
